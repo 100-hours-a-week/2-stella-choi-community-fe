@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Pretendard Variable";
+    background-color: #f5f5f5;
+}
+
+.container {
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    height: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid;
+}
+
+.header-name{
+    font-family: "Moirai One";
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.login-container {
+    padding-top: 264px;
+    border-radius: 8px;
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 67px;
+    font-size: 32px;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 355px;
+    height: 33px;
+    padding: 8px 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-family: "Pretendard Variable";
+    background-color: transparent;
+}
+
+input::placeholder {
+    color: rgb(0, 0, 0);
+    font-family: "Pretendard Variable";
+    font-weight: 400;
+}
+
+.helper-text {
+    color: #f44336;
+    font-size: 12px;
+    display: none; /* 기본적으로 숨김 */
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #ACA0EB ;
+    color: #fff;
+    border: none;
+    margin-top: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-btn.active {
+    background-color: #7F6AEE;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.register-btn {
+    color: #000000;
+    padding: 8px 12px;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    cursor: pointer;
+}
