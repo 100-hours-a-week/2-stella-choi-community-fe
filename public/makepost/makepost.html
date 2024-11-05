@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400&family=Moirai+One&family=Roboto+Mono&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="./makepost.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="arrow-wrap">
+                    <div class="arrow-prev"></div>
+                </div>
+                <p class="header-name">아무 말 대잔치</p>
+                <div class="profile-user-img">
+                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-user-real-img">
+                </div>
+            </div>
+        </header>
+        <main class="makepost-container">
+            <div class="info-content">
+                <p class="info-title">게시글 작성</p>
+            </div>
+            <div class="post-content">
+                <div class="form-group">
+                    <label for="title" class="title-form">제목*</label>
+                    <div class="input-title">
+                        <hr class="line">
+                        <input class="input-form" type="title" id="title" placeholder="제목을 입력해주세요. (최대 26글자)">
+                        <hr class="line">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="content" class="content-form">내용*</label>
+                    <div class="input-title">
+                        <hr class="line">
+                        <textarea class="text-form" type="content" id="content" placeholder="내용을 입력해주세요."></textarea>
+                        <hr class="line">
+                    </div>
+                </div>
+                <div class="image-group">
+                    <label for="content" class="content-form">이미지</label>
+                    <div class="part">
+                        <div class="image-button">
+                            <label for="file" class="image-form">파일 선택</label>
+                            <input id="file" type="file" accept="image/*" onchange="displayFileName()"/>
+                        </div>
+                        <div class="image-info">
+                            <span class="info-file-input" id="file-name">파일을 선택해주세요.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit-part">
+                    <button class="submit">완료</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="makepost.js"></script>
+
+
+
+
+
