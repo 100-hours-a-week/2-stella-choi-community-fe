@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보수정</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400&family=Moirai+One&family=Roboto+Mono&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="./editprofile.css?v=1.1">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <p class="header-name">아무 말 대잔치</p>
+                <div class="profile-user-img">
+                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-user-real-img">
+                </div>
+            </div>
+        </header>
+        <main class="profile-edit-container">
+            <div class="info-content">
+                <p class="edit-title">회원정보 수정</p>
+            </div>
+            <div class="profile-content">
+                <div class="info">
+                    <span class="profile-img-info">프로필 사진*</span>
+                </div>
+            </div>
+            <div class="image-profile-edit-container">
+                <div class="profile-img">
+                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-edit-img">
+                    <button class="edit-profile-content">변경</button>
+                </div>
+            </div>
+            <div class="info-list-content">
+                <div class="form-group">
+                    <label for="email" class="email-form">이메일</label>
+                    <span class="email-info">startupcode@gmail.com</span>
+                </div>
+                <div class="form-group">
+                    <label for="nickname" class="nickname-form">닉네임</label>
+                    <input class="input-form" type="nickname" id="nickname" value="스타트업코드">
+                    <small id="nicknameError" class="helper-text">* helper text</small>
+                </div>
+            </div>
+            <div class="button-content">
+                <button type="submit" class="edit-btn" id="editBtn">수정하기</button>
+                <button class="leave-btn">회원 탈퇴</button>
+            </div>
+            <div class="final-button">
+                <button type="submit" class="final-btn" id="finalBtn">수정완료</button>
+            </div>
+        </main>
+    </div>
+    
+
+</body>
+
+
+
+
+
