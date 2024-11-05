@@ -1,0 +1,366 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Pretendard Variable";
+    background-color: #f5f5f5;
+}
+
+header {
+    width: 100%;
+    height: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid;
+}
+
+.header-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 544px;
+}
+
+.profile-user-img{
+    width: 36px;
+    height: 36px;
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.profile-user-real-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-name{
+    font-family: "Moirai One";
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.arrow-wrap{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-prev {
+    content: '';
+    width: 10.93px; 
+    height: 10.93px;
+    border-top: 2px solid #000; 
+    border-right: 2px solid #000;
+    transform: rotate(225deg);
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.post{
+    padding:24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-info-part{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+    margin-bottom: 24px;
+}
+
+.post-title{
+    font-family: "Pretendard";
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 31.2px;
+    text-align: left;
+}
+
+.author-profile{
+    width: 36px;
+    height: 36px;
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.post-author-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:10px;
+}
+
+.profile-user-real-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-name{
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 19.5px;
+    text-align: left;
+}
+
+.post-date{
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    padding-left: 14px;
+}
+
+.info-update-part{
+    display: flex;
+    flex-direction: row;
+    gap:8px;
+    align-items: center;
+}
+
+.edit-button{
+    width: 50px;
+    height: 27px;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    border: #ACA0EB 1px solid;
+    border-radius: 4px;
+    display: flex;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-button{
+    width: 50px;
+    height: 27px;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    background: transparent;
+    border: #ACA0EB 1px solid;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partition {
+    border: 1px solid rgba(0, 0, 0, 0.16); 
+}
+
+.post-content-info{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap:24px;
+    align-items: center;
+}
+
+.post-image{
+    width: 544px;
+}
+
+
+.post-text{
+    width: 544px;
+    text-align: left;
+}
+
+.text{
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 21.15px;
+    text-align: left;
+}
+
+.post-stats{
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.stat{
+    width: 116px;
+    height: 77px;
+    top: 848px;
+    left: 783px;
+    gap: 0px;
+    border-radius: 16px;
+    opacity: 0px;
+    background: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 31px;
+}
+
+.stat-num{
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: center;
+}
+
+.stat-info{
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 25.04px;
+    text-align: center;
+}
+
+.comment-section{
+    margin-top: 33px;
+    width: 592px;
+    height: 169px;
+    border-radius: 16px;
+    opacity: 0px;
+}
+
+.comment-write-section{
+    width: 592px;
+    height: 175px;
+    gap: 0px;
+    border-radius: 16px;
+    background: #FFFFFF;
+}
+
+.comment-textarea{
+    padding: 0px;
+    margin: 24px 24px 0px 24px;
+    width: 544px;
+    height: 94px;
+    border: none;
+    resize: none;
+}
+
+.comment-textarea::placeholder{
+    margin:0;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.button-wrap{
+    margin: 6px 8px 6px 8px;
+    display: flex;
+    justify-content: end;
+}
+
+.submit-comment{
+    width: 138px;
+    height: 39px;
+    gap: 0px;
+    border: none;
+    border-radius: 16px;
+    background: #ACA0EB;
+    color: #FFFFFF;
+    opacity: 0px;
+}
+
+.comment-text{
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 25.04px;
+    text-align: center;
+}
+
+.partition-v {
+    border-top: 1px solid rgba(0, 0, 0, 0.16); 
+}
+
+.custom-line {
+    height: 1px;
+    background-color: #ddd; /* 선 색상 */
+    margin: 0; /* 상단 여백 없애기 */
+}
+
+.comment-check-section{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:154px;
+}
+
+.comment-part{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment-info-part{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-author{
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 19.5px;
+    text-align: left;
+}
+
+.comment-date{
+    padding-left: 14px;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: right;
+}
+
+.comment-content{
+    text-align: left;
+    padding-left: 46px;
+}
+
+.comment-controls{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
