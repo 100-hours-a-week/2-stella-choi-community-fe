@@ -7,3 +7,11 @@ function displayFileName() {
         fileNameDisplay.textContent = '선택된 파일 없음';
     }
 }
+
+document.querySelector('.submit-part').addEventListener('click', () => {
+    window.location.href = `/post`;
+});
+
+document.querySelector('.arrow-wrap').addEventListener('click', () => {
+    window.location.href = `/board`;
+});

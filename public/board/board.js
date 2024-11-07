@@ -1,5 +1,5 @@
 document.querySelector('.create-post-btn').addEventListener('click', () => {
-    alert('게시물 작성 버튼이 클릭되었습니다.');
+    window.location.href = `/makepost`;
 });
 
 let page = 1; // 시작 페이지
@@ -61,41 +61,3 @@ window.addEventListener("scroll", () => {
 
 // 초기 데이터 로드
 document.addEventListener('DOMContentLoaded', loadData);
-// document.addEventListener('DOMContentLoaded', () => {
-//     fetch('/data/board.json')
-//         .then(response => response.json())
-//         .then(data => {
-//             const postList = document.querySelector('.post-list');
-//             data.forEach(post => {
-//                 const formatNumber = num => num >= 1000 ? `${(num / 1000).toFixed(1)}k` : num;
-
-//                 const postItem = document.createElement('div');
-//                 postItem.classList.add('post-item');
-//                 postItem.innerHTML = `
-//                     <div class="post-header">
-//                         <span class="post-title">${post.title.length > 26 ? post.title.substring(0, 26) + '...' : post.title}</span>
-//                         <div class="info-part">
-//                             <div class="post-info">
-//                                 <span class="like-info">좋아요 ${formatNumber(post.like)}</span>
-//                                 <span class="comment-info">댓글 ${formatNumber(post.comment)}</span>
-//                                 <span class="view-info">조회수 ${formatNumber(post.view)}</span>
-//                             </div>
-//                             <span class="post-date">${post.date}</span>
-//                         </div> 
-//                     </div>
-//                     <hr class="border-line">
-//                     <div class="writer-header">
-//                         <img src="${post.profileImage}" alt="${post.writer}">
-//                         <span class="writer-info">${post.writer}</span>
-//                     </div>
-//                 `;
-//                 postList.appendChild(postItem);
-
-//                 // 카드 클릭 시 상세 페이지로 이동 (예: 게시글 ID를 URL에 포함)
-//                 postItem.addEventListener('click', () => {
-//                     window.location.href = `/post/${post.id}`;
-//                 });
-//             });
-//         })
-//         .catch(error => console.error('Error loading JSON data:', error));
-// });
