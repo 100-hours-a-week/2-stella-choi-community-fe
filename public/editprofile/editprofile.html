@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400&family=Moirai+One&family=Roboto+Mono&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="./editprofile.css?v=1.1">
+    <link rel="stylesheet" href="../dropdown/profileDropdown.css">
 </head>
 <body>
     <div class="container">
         <header>
             <div class="header-content">
                 <p class="header-name">아무 말 대잔치</p>
-                <div class="profile-user-img">
-                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-user-real-img">
+                <div class="wrapper">
+                    <div class="profile-user-img">
+                        <img src="../images/userprofile.png" alt="profile-user-img" class="profile-user-real-img">
+                    </div>
+                    <div class="profile-dropdown" id="profile-dropdown">
+                            <div class="editProfile" data-url="/editprofile">회원정보수정</div>
+                            <div class="editPassword" data-url="/editpassword">비밀번호수정</div>
+                            <div class="logout">로그아웃</div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -53,8 +61,20 @@
             </div>
         </main>
     </div>
-    
 
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div id="delete-account-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p class="info-account">회원탈퇴 하시겠습니까?</p>
+            <p class="info-deleted">작성된 게시글과 댓글은 삭제됩니다.</p>
+            <div class="button-set">
+                <button id="cancelDeleteAccount" class="cancel-button">취소</button>
+                <button id="confirmDeleteAccount" class="confirm-button">확인</button>
+            </div>
+        </div>
+    </div>
+    <script src="../dropdown/profileDropdown.js"></script>
+    <script src="editprofile.js"></script>
 </body>
 
 
