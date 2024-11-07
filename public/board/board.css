@@ -103,6 +103,22 @@ header {
     height: 39px;
 }
 
+.create-post-btn {
+    background-color: #ACA0EB;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    width: 138px;
+    height: 39px;
+    transition: background-color 0.3s ease;
+}
+
+.create-post-btn:hover {
+    background-color: #7F6AEE;
+}
+
 .border-line {
     border: 1px solid rgba(0, 0, 0, 0.16); 
 }

@@ -1,0 +1,38 @@
+[
+    {
+        "title": "제목 1",
+        "like": 1500,
+        "comment": 23,
+        "view": 10500,
+        "date": "2021-01-01 00:00:00",
+        "writer": "더미 작성자 1",
+        "profileImage": "/images/profile.png"
+    },
+    {
+        "title": "제목 2",
+        "like": 300,
+        "comment": 45,
+        "view": 2000,
+        "date": "2021-01-02 12:30:00",
+        "writer": "더미 작성자 2",
+        "profileImage": "/images/profile.png"
+    },
+    {
+        "title": "제목 3",
+        "like": 1500,
+        "comment": 23,
+        "view": 10500,
+        "date": "2021-01-01 00:00:00",
+        "writer": "더미 작성자 1",
+        "profileImage": "/images/profile.png"
+    },
+    {
+        "title": "제목 4",
+        "like": 300,
+        "comment": 45,
+        "view": 2000,
+        "date": "2021-01-02 12:30:00",
+        "writer": "더미 작성자 2",
+        "profileImage": "/images/profile.png"
+    }
+]
