@@ -26,6 +26,13 @@ header {
     width: 544px;
 }
 
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap:8px;
+}
+
 .profile-user-img{
     width: 36px;
     height: 36px;
@@ -274,6 +281,8 @@ header {
     text-align: left;
 }
 
+.comment-textarea:focus {outline: none;} 
+
 .button-wrap{
     margin: 6px 8px 6px 8px;
     display: flex;
@@ -363,4 +372,95 @@ header {
     display: flex;
     flex-direction: row;
     gap: 8px;
+}
+
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검정 배경 */
+    z-index: 999; 
+}
+
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;   
+}
+
+.modal-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 408px;
+    height: 242px;
+    border-radius: 12px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-post{
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28.64px;
+    text-align: center;
+}
+
+.info-deleted{
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.87px;
+    text-align: center;
+}
+
+.info-comment{
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28.64px;
+    text-align: center;
+}
+
+.button-set{
+    display: flex;
+    flex-direction: row;
+    gap:16px;
+}
+
+.cancel-button{
+    width: 127px;
+    height: 44px;
+    border-radius: 12px;
+    background: #242424;
+
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.87px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.confirm-button{
+    width: 127px;
+    height: 44px;
+    border-radius: 12px;
+    background: #C4A5FA;
+
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.87px;
+    text-align: center;
+    color: #000000;
+    border: none;
 }

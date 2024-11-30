@@ -26,6 +26,13 @@ header {
     width: 544px;
 }
 
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap:8px;
+}
+
 .profile-user-img{
     width: 36px;
     height: 36px;

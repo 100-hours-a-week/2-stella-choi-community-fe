@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400&family=Moirai+One&family=Roboto+Mono&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap">
     <link rel="stylesheet" href="./board.css?v=1.2">
+    <link rel="stylesheet" href="../dropdown/profileDropdown.css">
 </head>
 <body class="body-board">
     <div class="container">
         <header>
             <div class="header-content">
                 <p class="header-name">아무 말 대잔치</p>
-                <div class="profile-user-img">
-                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-user-real-img">
+                <div class="wrapper">
+                    <div class="profile-user-img">
+                        <img src="../images/userprofile.png" alt="profile-user-img" class="profile-user-real-img">
+                    </div>
+                    <div class="profile-dropdown" id="profile-dropdown">
+                            <div class="editProfile" data-url="/editprofile">회원정보수정</div>
+                            <div class="editPassword" data-url="/editpassword">비밀번호수정</div>
+                            <div class="logout">로그아웃</div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -32,4 +40,5 @@
     </div>
 </body>
 <script src="board.js"></script>
+<script src="../dropdown/profileDropdown.js"></script>
 </html>

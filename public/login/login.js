@@ -97,3 +97,7 @@ function validatePassword(password) {
     const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
     return re.test(password);
 }
+
+document.querySelector('.actions').addEventListener('click', () => {
+    window.location.href = `/join`;
+});
