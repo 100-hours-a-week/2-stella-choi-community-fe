@@ -1,0 +1,22 @@
+{ 
+    "post_id": 2,
+    "title": "제목2",
+    "likes_count": 0,
+    "comment_count": 2,
+    "view_count": 0,
+    "user_id": 0,
+    "user_name": "더미작성자1",
+    "user_profile": "/images/profile.png",
+    "content" : "내일 회먹는다 드디어어어어",
+    "image": "/images/example.jpg",
+    "posted_time": "2021-02-01 00:00:00",
+    "comments": [
+        {
+            "comment_id": 1,
+            "comment_writer": "더미 작성자1",
+            "comment_posted_time": "2021-01-01 00:00:00",
+            "comment_data": "댓글 내용",
+            "comment_writer_profile": "/images/profile.png"
+        }
+    ]
+}
