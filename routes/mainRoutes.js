@@ -15,7 +15,7 @@ router.get('/join', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/join/join.html'));
 });
 
-router.get('/post', (req, res) => {
+router.get('/post/:postID', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/post/post.html'));
 });
 

@@ -1,0 +1,134 @@
+[
+    {
+        "post_id": 1,
+        "title": "제목1",
+        "likes_count": 1500,
+        "comment_count": 300,
+        "view_count": 200,
+        "user_id": 1,
+        "user_name": "더미작성자1",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 2,
+        "title": "제목2",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 2,
+        "user_name": "더미작성자2",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 3,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자3",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 4,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자4",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 5,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자5",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 6,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자6",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 7,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자7",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 8,
+        "title": "제목2",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자8",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 9,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자9",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 10,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자10",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 11,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자11",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    },
+    {
+        "post_id": 12,
+        "title": "제목1",
+        "likes_count": 0,
+        "comment_count": 0,
+        "view_count": 0,
+        "user_id": 0,
+        "user_name": "더미작성자12",
+        "user_profile": "/images/profile.png",
+        "posted_time": "2021-02-01 00:00:00"
+    }
+]
