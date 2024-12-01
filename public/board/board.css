@@ -149,6 +149,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding-bottom:20px;
 }
 
 .post-item {

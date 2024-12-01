@@ -179,6 +179,12 @@ header {
     align-items: center;
 }
 
+.edit-button:hover, .delete-button:hover{
+    background-color: #ACA0EB; /* 호버 시 배경색 */
+    color: #FFFFFF; /* 글씨 흰색 */
+    border-color: #ACA0EB; /* 테두리 색상 */
+}
+
 .partition {
     border: 1px solid rgba(0, 0, 0, 0.16); 
 }
@@ -262,6 +268,7 @@ header {
     gap: 0px;
     border-radius: 16px;
     background: #FFFFFF;
+    font-family: Pretendard;
 }
 
 .comment-textarea{
@@ -271,6 +278,9 @@ header {
     height: 94px;
     border: none;
     resize: none;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .comment-textarea::placeholder{
@@ -331,6 +341,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding-bottom: 20px;
 }
 
 .comment-info-part{

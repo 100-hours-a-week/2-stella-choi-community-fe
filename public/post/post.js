@@ -1,4 +1,3 @@
-
 // 데이터 로딩 및 출력
 
 async function loadData() {
@@ -15,6 +14,10 @@ async function loadData() {
     } 
 }
 
+const commentInput = document.querySelector('.comment-textarea');
+const commentSubmitButton = document.querySelector('.submit-comment');
+const buttonText = document.querySelector('.comment-text');
+
 function renderPost(data) {
     document.querySelector('.post-title').textContent = data.title;
     document.querySelector('.author-name').textContent = data.user_name;
@@ -27,10 +30,15 @@ function renderPost(data) {
     document.querySelectorAll('.stat-num')[2].textContent = data.comment_count;
 
     const commentSection = document.querySelector('.comment-part');
-    commentSection.innerHTML = ''; 
+    commentSection.innerHTML = '';
+    
+
+    let isEditing = false;
+    let editingCommentId = null;
+
     data.comments.forEach(comment => {
         const commentHTML = `
-            <div class="comment-check-section">
+            <div class="comment-check-section" data-comment-id="${comment.comment_id}">
                 <div class="comment-info-part">
                 <div class="comment-info">
                     <div class="profile-user-img">
@@ -44,11 +52,54 @@ function renderPost(data) {
                 </div>
                 </div>
                 <div class="comment-controls">
-                <button class="edit-button">수정</button>
+                <button class="edit-button" id="comment-edit">수정</button>
                 <button class="delete-button" id="comment-delete">삭제</button>
                 </div>
             </div>`;
         commentSection.insertAdjacentHTML('beforeend', commentHTML);
+        const commentDeleteButton = document.querySelectorAll('#comment-delete');
+        commentDeleteButton.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('댓글 삭제 버튼 눌림');
+                openCommentModal();
+            });
+        });
+
+        document.querySelectorAll('#comment-edit').forEach(button => {
+            button.addEventListener('click', (e)=>{
+                e.preventDefault();
+                console.log('댓글 수정 버튼 눌림');
+                const commentSection = button.closest('.comment-check-section');
+                const commentId = commentSection.dataset.commentId;
+                const commentContent = commentSection.querySelector('.comment-data').textContent;
+
+                isEditing = true;
+                editingCommentId = commentId;
+
+                commentInput.value = commentContent;
+                buttonText.textContent='댓글 수정';
+            })
+        })
+
+        commentSubmitButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const newCommentContent = commentInput.value;
+
+            if(isEditing){
+                const commentToEdit = document.querySelector(`.comment-check-section[data-comment-id="${editingCommentId}"]`);
+                commentToEdit.querySelector('.comment-data').textContent = newCommentContent;
+
+                isEditing = false;
+                editingCommentId = null;
+                buttonText.textContent = '댓글 등록'; 
+                commentInput.value = ''; 
+            }
+            else{
+                // ✅ [TODO] 댓글 등록 로직
+                console.log("댓글 등록:", newCommentContent);
+            }
+        })
     });
 }
 
@@ -62,7 +113,7 @@ const cancelPostDeleteButton = document.getElementById('cancelDeletePost');
 const confirmPostDeleteButton = document.getElementById('confirmDeletePost');
 
 const deleteCommentModal = document.getElementById('delete-comment-modal');
-const commentDeleteButton = document.querySelectorAll('#comment-delete');
+
 const cancelCommentDeleteButton = document.getElementById('cancelDeleteComment');
 const confirmCommentDeleteButton = document.getElementById('confirmDeleteComment');
 
@@ -106,13 +157,6 @@ function closeCommentModal() {
     document.body.style.overflow = 'auto'; // 스크롤 허용
 }
 
-commentDeleteButton.forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('댓글 삭제 버튼 눌림');
-        openCommentModal();
-    });
-});
 
 // 취소 버튼 클릭 시 모달 닫기
 cancelCommentDeleteButton.addEventListener('click', closeCommentModal);
@@ -130,4 +174,16 @@ document.querySelector('.arrow-wrap').addEventListener('click', () => {
 
 document.querySelector('.edit-button').addEventListener('click', () => {
     window.location.href = `/editpost`;
+});
+
+
+commentInput.addEventListener('input', function () {
+    const inputValue = this.value.trim();
+    if (inputValue.length > 0) {
+        commentSubmitButton.disabled = false;
+        commentSubmitButton.style.backgroundColor = '#7F6AEE'; // 버튼 활성화 색상
+    } else {
+        commentSubmitButton.disabled = true;
+        commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
+    }
 });
