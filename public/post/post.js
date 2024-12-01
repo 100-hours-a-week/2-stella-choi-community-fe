@@ -1,10 +1,8 @@
 // 데이터 로딩 및 출력
-
+const path = window.location.pathname;
+const postID = path.split('/')[2];
 async function loadData() {
     try {
-        const path = window.location.pathname;
-        const postID = path.split('/')[2];
-        console.log(postID);    
         const response = await fetch(`/data/boards/${postID}.json`); // 로컬 JSON 파일 경로
         const jsonData = await response.json();
         console.log(jsonData);
@@ -32,7 +30,6 @@ function renderPost(data) {
     const commentSection = document.querySelector('.comment-part');
     commentSection.innerHTML = '';
     
-
     let isEditing = false;
     let editingCommentId = null;
 
@@ -113,9 +110,10 @@ const cancelPostDeleteButton = document.getElementById('cancelDeletePost');
 const confirmPostDeleteButton = document.getElementById('confirmDeletePost');
 
 const deleteCommentModal = document.getElementById('delete-comment-modal');
-
 const cancelCommentDeleteButton = document.getElementById('cancelDeleteComment');
 const confirmCommentDeleteButton = document.getElementById('confirmDeleteComment');
+
+const editPostButton = document.querySelector('edit-button');
 
 function openPostModal() {
     modalOverlay.style.display = 'block';
@@ -143,6 +141,7 @@ cancelPostDeleteButton.addEventListener('click', closePostModal);
 confirmPostDeleteButton.addEventListener('click', () => {
     closePostModal();
 });
+
 
 
 function openCommentModal() {
@@ -173,7 +172,7 @@ document.querySelector('.arrow-wrap').addEventListener('click', () => {
 });
 
 document.querySelector('.edit-button').addEventListener('click', () => {
-    window.location.href = `/editpost`;
+    window.location.href = `/editpost/${postID}`;
 });
 
 
