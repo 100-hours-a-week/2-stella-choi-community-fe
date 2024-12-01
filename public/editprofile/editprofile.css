@@ -239,6 +239,10 @@ header {
     text-align: center;
 }
 
+.edit-btn:hover{
+    background:#7F6AEE;
+}
+
 .leave-btn{
     background: transparent;
     border: none;
