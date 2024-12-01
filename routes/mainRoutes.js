@@ -23,7 +23,7 @@ router.get('/makepost', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/makepost/makepost.html'));
 });
 
-router.get('/editpost', (req, res) => {
+router.get('/editpost/:postID', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/editpost/editpost.html'));
 });
 

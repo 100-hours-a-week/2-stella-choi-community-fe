@@ -82,6 +82,7 @@ header {
 
 .editpost-container{
     margin-top: 24px;
+    margin-bottom: 20px;
 }
 
 .info-title{
@@ -149,7 +150,7 @@ header {
 .text-form{
     margin: 24px 24px;
     width: 570px;
-    height: 299px;
+    height: 279px;
     border: none;
     resize: none;
     background: transparent;
@@ -243,11 +244,13 @@ header {
     background: #ACA0EB;
     color: #FFFFFF;
     border: none;
-    margin-top: 16px;
-
     font-family: Pretendard;
     font-size: 14px;
     font-weight: 700;
     line-height: 16.71px;
     text-align: center;
+}
+
+.submit:hover{
+    background:#7F6AEE;
 }
