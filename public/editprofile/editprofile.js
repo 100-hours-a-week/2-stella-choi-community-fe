@@ -4,6 +4,9 @@ const accountDeleteButton = document.querySelector('.leave-btn');
 const cancelAccountDeleteButton = document.getElementById('cancelDeleteAccount');
 const confirmAccountDeleteButton = document.getElementById('confirmDeleteAccount');
 const editButton = document.querySelector('.edit-btn');
+const profileImgInput = document.getElementById('profileImgInput');
+const profileEditImg = document.getElementById('profileEditImg');
+const changeProfileBtn = document.getElementById('changeProfileBtn');
 
 function openDeleteModal() {
     modalOverlay.style.display = 'block';
@@ -50,6 +53,22 @@ confirmAccountDeleteButton.addEventListener('click', () => {
     // TODO: 회원탈퇴 로직
     closeDeleteModal();
     window.location.href = `/login`;
+});
+
+changeProfileBtn.addEventListener('click', () => {
+    profileImgInput.click();
+});
+
+profileImgInput.addEventListener('change', (event) => {
+    const file = event.target.files[0]; // 선택한 파일
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            profileEditImg.src = e.target.result; // 이미지 미리 보기 업데이트
+        };
+        reader.readAsDataURL(file);
+        console.log(file);
+    }
 });
 
 async function loadData() {
