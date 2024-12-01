@@ -37,8 +37,9 @@
             </div>
             <div class="image-profile-edit-container">
                 <div class="profile-img">
-                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-edit-img">
-                    <button class="edit-profile-content">변경</button>
+                    <img src="../images/userprofile.png" alt="profile-user-img" class="profile-edit-img" id="profileEditImg">
+                    <input type="file" id="profileImgInput" accept="image/*" style="display: none;">
+                    <button class="edit-profile-content" id="changeProfileBtn">변경</button>
                 </div>
             </div>
             <div class="info-list-content">
@@ -56,9 +57,7 @@
                 <button type="submit" class="edit-btn" id="editBtn">수정하기</button>
                 <button class="leave-btn">회원 탈퇴</button>
             </div>
-            <div class="final-button">
-                <button type="submit" class="final-btn" id="finalBtn">수정완료</button>
-            </div>
+
         </main>
     </div>
 
@@ -73,6 +72,8 @@
             </div>
         </div>
     </div>
+
+    <div id="toast-container"></div>
     <script src="../dropdown/profileDropdown.js"></script>
     <script src="editprofile.js"></script>
 </body>

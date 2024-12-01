@@ -18,7 +18,9 @@
     line-height: 14.52px;
     text-align: center;
 }
-
+.profile-dropdown > div:hover{
+    background: #E9E9E9;
+}
 .profile-user-img {
     cursor: pointer;
 }
