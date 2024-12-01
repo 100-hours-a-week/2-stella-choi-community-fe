@@ -1,20 +1,40 @@
-const deleteAccounttModal = document.getElementById('delete-account-modal');
+const deleteAccountModal = document.getElementById('delete-account-modal');
 const modalOverlay = document.getElementById('modal-overlay');
 const accountDeleteButton = document.querySelector('.leave-btn');
 const cancelAccountDeleteButton = document.getElementById('cancelDeleteAccount');
 const confirmAccountDeleteButton = document.getElementById('confirmDeleteAccount');
+const editButton = document.querySelector('.edit-btn');
 
 function openDeleteModal() {
     modalOverlay.style.display = 'block';
-    deleteAccounttModal.style.display = 'block';
+    deleteAccountModal.style.display = 'block';
     document.body.style.overflow = 'hidden'; // 스크롤 막기
 }
 
 function closeDeleteModal() {
     modalOverlay.style.display = 'none';
-    deleteAccounttModal.style.display = 'none';
+    deleteAccountModal.style.display = 'none';
     document.body.style.overflow = 'auto'; // 스크롤 허용
 }
+
+function showToast(message) {
+    const toastContainer = document.getElementById('toast-container');
+
+    const toastMessage = document.createElement('div');
+    toastMessage.classList.add('toast-message');
+    toastMessage.textContent = message;
+
+    toastContainer.appendChild(toastMessage);
+
+    // 20초 후 메시지 제거
+    setTimeout(() => {
+        toastMessage.remove();
+    }, 5000);
+}
+
+editButton.addEventListener('click', () => {
+    showToast('수정완료');
+});
 
 // 삭제 버튼 클릭 시 모달 열기
 accountDeleteButton.addEventListener('click', (e) => {
