@@ -46,14 +46,12 @@ accountDeleteButton.addEventListener('click', (e) => {
 // 취소 버튼 클릭 시 모달 닫기
 cancelAccountDeleteButton.addEventListener('click', closeDeleteModal);
 
-// 확인 버튼 클릭 시 [TODO] 실제 삭제 및 모달 닫기
 confirmAccountDeleteButton.addEventListener('click', () => {
-    console.log('확인버튼눌림?');
-    // 실제 삭제 로직 추가
+    // TODO: 회원탈퇴 로직
     closeDeleteModal();
+    window.location.href = `/login`;
 });
 
-//TODO: FETCH 유저 데이터
 async function loadData() {
     try {
         // TODO: 세션 기반 유저 데이터 조회 필요
