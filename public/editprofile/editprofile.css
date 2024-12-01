@@ -217,6 +217,10 @@ header {
     background: transparent;
 }
 
+.input-form:focus{
+    outline: none;
+}
+
 .button-content{
     margin-top: 12px;
     display: flex;
