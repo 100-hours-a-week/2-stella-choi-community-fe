@@ -32,3 +32,25 @@ confirmAccountDeleteButton.addEventListener('click', () => {
     // 실제 삭제 로직 추가
     closeDeleteModal();
 });
+
+//TODO: FETCH 유저 데이터
+async function loadData() {
+    try {
+        // TODO: 세션 기반 유저 데이터 조회 필요
+        const response = await fetch(`/data/users/user.json`); // 로컬 JSON 파일 경로
+        const jsonData = await response.json();
+        console.log(jsonData);
+        renderUser(jsonData);
+    } catch (error) {
+        console.error("데이터 로딩 중 오류 발생:", error);
+    } 
+}
+
+function renderUser(data){
+    document.querySelector('.profile-edit-img').src = data.profile_image;
+    document.querySelector('.email-info').textContent = data.email;
+    document.querySelector('.input-form').value = data.nickname;
+}
+
+// 초기 데이터 로드
+document.addEventListener('DOMContentLoaded', loadData);
