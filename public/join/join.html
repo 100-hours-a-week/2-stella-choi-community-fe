@@ -25,14 +25,16 @@
             <div class="profile-content">
                 <div class="info">
                     <span class="profile-img">프로필 사진</span>
-                    <small id="profile-error" class="helper-text">* helper text</small>
+                    <small id="profileError" class="helper-text">* helper text</small>
                 </div>
             </div>
-            <div class="image-profile-add-container">
-                <div class="circle">
+            <div class="image-profile-add-container" id="imageProfileAddContainer">
+                <div class="circle" id="circle">
                     <span class="plus">+</span>
                 </div>
+                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
             </div>
+
             <div class="info-list-content">
                 <div class="form-group">
                     <label for="email" class="title-form">이메일*</label>
