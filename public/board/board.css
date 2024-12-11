@@ -32,10 +32,10 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    width: 592px;
-    padding-right: 29px;
-    padding-left: 196px;
+    justify-content: center;
+    gap: 133px;
+    width: 100%;
+    padding-left: 6%;
 }
 
 .wrapper{
@@ -44,6 +44,7 @@ header {
     align-items: end;
     gap:8px;
 }
+
 .profile-user-img{
     width: 36px;
     height: 36px;
@@ -59,10 +60,26 @@ header {
 }
 
 
-.header-name{
+.header-name {
+    font-size: 32px; /* 기본 폰트 크기 */
     font-family: "Moirai One";
-    font-size: 32px;
     font-weight: 700;
+}
+
+@media (max-width: 768px) { /* 태블릿 이하 */
+    .header-name {
+        font-size: 25px;
+        font-family: "Moirai One";
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 480px) { /* 모바일 화면 */
+    .header-name {
+        font-size: 15px;
+        font-family: "Moirai One";
+        font-weight: 700;
+    }
 }
 
 .profile-icon {

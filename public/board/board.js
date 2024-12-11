@@ -1,3 +1,8 @@
+const hostUrl = "http://localhost:8080/api/";
+const staticUrl = "http://localhost:8080/";
+const serverVersion = "v1";
+
+
 document.querySelector('.create-post-btn').addEventListener('click', () => {
     window.location.href = `/makepost`;
 });
@@ -5,49 +10,59 @@ document.querySelector('.create-post-btn').addEventListener('click', () => {
 let offset = 0;
 const limit = 10;
 let isLoading = false;
-let allData = [];
+let hasMoreData = true; // 데이터가 더 있을 때 true로 유지
 
 async function loadData() {
-    if(isLoading) return;
+    if (isLoading || !hasMoreData) return; // 데이터를 더 가져올 필요가 없으면 실행 안 함
     isLoading = true;
+    console.log(offset, limit);
 
+    const getBoardUrl = `${hostUrl}${serverVersion}/boards?offset=${offset}&limit=${limit}`;
     try {
-        if (allData.length === 0) {
-            const response = await fetch('/data/boards/boards.json'); // 로컬 JSON 파일 경로
-            if (!response.ok) {
-                console.error("JSON 파일을 불러올 수 없습니다.");
-                isLoading = false;
-                return;
+        const response = await fetch(getBoardUrl, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
             }
-            allData = await response.json();
-        }
+        });
 
-        const paginatedData = allData.slice(offset, offset + limit);
-        if (paginatedData.length === 0) {
-            console.log("더 이상 불러올 데이터가 없습니다.");
-            isLoading = false;
+        if (!response.ok) {
+            const errorData = await response.json();
+            await handleError(response.status, errorData.message); // 오류 처리
             return;
         }
 
-        renderData(paginatedData);
+        const responseData = await response.json();
+        const { data } = responseData;
+        console.log(data);
+
+        if (data.length === 0) {
+            console.log("더 이상 불러올 데이터가 없습니다.");
+            hasMoreData = false; // 더 이상 데이터 없음
+            return false;
+        }
+
+        await renderData(data);
         offset += limit;
     } catch (error) {
-        console.error("데이터 로딩 중 오류 발생:", error);
-    } finally{
+        console.error("데이터 로드 중 오류 발생:", error);
+    } finally {
         isLoading = false;
     }
 }
 
-function renderData(data){
+async function renderData(data) {
     const postList = document.querySelector('.post-list');
     data.forEach(post => {
         const formatNumber = num => num >= 1000 ? `${(num / 1000).toFixed(1)}k` : num;
 
         const postItem = document.createElement('div');
+        const profileImage = staticUrl + post.user_profile;
         postItem.classList.add('post-item');
         postItem.innerHTML = `
             <div class="post-header">
-                <span class="post-title">${post.title.length > 26 ? post.title.substring(0, 26) : post.title}</span>
+                <span class="post-title">${post.title.length > 26 ? post.title.substring(0, 26) + '...' : post.title}</span>
                 <div class="info-part">
                     <div class="post-info">
                         <span class="like-info">좋아요 ${formatNumber(post.likes_count)}</span>
@@ -59,24 +74,84 @@ function renderData(data){
             </div>
             <hr class="border-line">
             <div class="writer-header">
-                <img src="${post.user_profile}" alt="${post.user_name}">
+                <img src="${profileImage}" alt="${post.user_name}" loading="lazy" class="profile-user-img">
                 <span class="writer-info">${post.user_name}</span>
             </div>
         `;
         postList.appendChild(postItem);
 
-        // 카드 클릭 시 상세 페이지로 이동 (예: 게시글 ID를 URL에 포함)
+        // 카드 클릭 시 상세 페이지로 이동
         postItem.addEventListener('click', () => {
             window.location.href = `/post/${post.post_id}`;
         });
     });
 }
 
-window.addEventListener("scroll", () => {
+const handleError = async (response) => {
+    const responseBody = await response.json();
+
+    switch (responseBody.message) {
+        case "MISSING_FIELD":
+            console.log("offset, limit 정보를 입력해주세요.");
+            break;
+        case "INVALID_FORMAT":
+            console.log("offset, limit은 숫자로 입력해야 합니다.");
+            break;
+        case "INVALID_PASSWORD":
+            alert("인증되지 않은 사용자입니다. 다시 로그인해주세요.");
+            break;
+        case "INTERNAL_SERVER_ERROR":
+            alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            break;
+        default:
+            alert("알 수 없는 오류가 발생했습니다.");
+    }
+};
+
+async function loadProfile(){
+    const getProfileUrl = `${hostUrl}${serverVersion}/users`;
+
+    try {
+        const response = await fetch(getProfileUrl, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            await handleError(response.status, errorData.message); // 오류 처리
+            return;
+        }
+
+        const responseData = await response.json();
+        const { data } = responseData;
+        console.log(data);
+        const profileImage = staticUrl + data.profile_image;
+        await renderProfile(profileImage);
+    } catch (error) {
+        console.error("데이터 로드 중 오류 발생:", error);
+    } finally {
+        isLoading = false;
+    }
+}
+
+async function renderProfile(data){
+    const profileImage = document.querySelector('.profile-user-real-img');
+    profileImage.src = data;
+}
+
+window.addEventListener("scroll", async() => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        loadData();
+        await loadData();
     }
 });
 
 // 초기 데이터 로드
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', async () => {
+    loadData();
+    loadProfile();
+    }
+);
