@@ -1,12 +1,32 @@
-// 데이터 로딩 및 출력
+const hostUrl = "http://localhost:8080/api/";
+const staticUrl = "http://localhost:8080/";
+const serverVersion = "v1";
+
 const path = window.location.pathname;
 const postID = path.split('/')[2];
+
 async function loadData() {
+    const getPostUrl = `${hostUrl}${serverVersion}/boards/${postID}`;
     try {
-        const response = await fetch(`/data/boards/${postID}.json`); // 로컬 JSON 파일 경로
-        const jsonData = await response.json();
-        console.log(jsonData);
-        renderPost(jsonData);
+        const response = await fetch(getPostUrl,{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            await handleError(response.status, errorData.message); // 오류 처리
+            return;
+        }
+
+        const responseData = await response.json();
+        const { data } = responseData;
+        console.log(data);
+
+        await renderPost(data);
     } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
     } 
@@ -17,12 +37,21 @@ const commentSubmitButton = document.querySelector('.submit-comment');
 const buttonText = document.querySelector('.comment-text');
 
 function renderPost(data) {
+    const profileImage = staticUrl + data.user_profile;
+    const postImage = data.post_image ? staticUrl + data.post_image : null;
     document.querySelector('.post-title').textContent = data.title;
     document.querySelector('.author-name').textContent = data.user_name;
-    document.querySelector('.profile-user-real-img').src = data.user_profile;
+    document.getElementById('writer-img').src = profileImage;
     document.querySelector('.post-date').textContent = data.date;
     document.querySelector('.post-text .text').textContent = data.content;
-    document.querySelector('.post-image').src = data.image;
+
+    const postImageElement = document.querySelector('.post-image');
+    if (postImage) {
+        postImageElement.src = postImage; // 이미지가 존재하면 설정
+        postImageElement.style.display = ''; // 감춰져 있을 수도 있으니 다시 보이도록 설정
+    } else {
+        postImageElement.style.display = 'none'; // 이미지가 없으면 감추기
+    }
     document.querySelectorAll('.stat-num')[0].textContent = data.likes_count;
     document.querySelectorAll('.stat-num')[1].textContent = data.view_count;
     document.querySelectorAll('.stat-num')[2].textContent = data.comment_count;
@@ -39,7 +68,7 @@ function renderPost(data) {
                 <div class="comment-info-part">
                 <div class="comment-info">
                     <div class="profile-user-img">
-                    <img src="${comment.comment_writer_profile}" alt="profile-user-img" class="profile-user-real-img">
+                    <img src="${staticUrl + comment.comment_writer_profile}" alt="profile-user-img" class="profile-user-real-img">
                     </div>
                     <span class="comment-author">${comment.comment_writer}</span>
                     <span class="comment-date">2021-01-01 00:00:00</span>
@@ -100,8 +129,49 @@ function renderPost(data) {
     });
 }
 
+
+async function loadProfile(){
+    const getProfileUrl = `${hostUrl}${serverVersion}/users`;
+
+    try {
+        const response = await fetch(getProfileUrl, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            await handleError(response.status, errorData.message); // 오류 처리
+            return;
+        }
+
+        const responseData = await response.json();
+        const { data } = responseData;
+        console.log(data);
+        const profileImage = staticUrl + data.profile_image;
+        await renderProfile(profileImage);
+    } catch (error) {
+        console.error("데이터 로드 중 오류 발생:", error);
+    } finally {
+        isLoading = false;
+    }
+}
+
+async function renderProfile(data){
+    const profileImage = document.querySelector('.profile-user-real-img');
+    profileImage.src = data;
+}
+
 // 초기 데이터 로드
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', async () => {
+        loadData();
+        loadProfile();
+    }
+);
+
 
 const deletePostModal = document.getElementById('delete-post-modal');
 const modalOverlay = document.getElementById('modal-overlay');
