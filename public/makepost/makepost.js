@@ -1,4 +1,5 @@
 const hostUrl = "http://localhost:8080/api/";
+const staticUrl = "http://localhost:8080/";
 const serverVersion = "v1";
 
 function displayFileName() {
@@ -86,7 +87,44 @@ function handleError(message) {
     }
 }
 
+async function loadProfile(){
+    const getProfileUrl = `${hostUrl}${serverVersion}/users`;
+
+    try {
+        const response = await fetch(getProfileUrl, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            await handleError(response.status, errorData.message); // 오류 처리
+            return;
+        }
+
+        const responseData = await response.json();
+        const { data } = responseData;
+        console.log(data);
+        const profileImage = staticUrl + data.profile_image;
+        await renderProfile(profileImage);
+    } catch (error) {
+        console.error("데이터 로드 중 오류 발생:", error);
+    } finally {
+        isLoading = false;
+    }
+}
+
+async function renderProfile(data){
+    const profileImage = document.querySelector('.profile-user-real-img');
+    profileImage.src = data;
+}
+
+
 document.addEventListener('DOMContentLoaded', async () => {
         displayFileName();
+        loadProfile();
     }
 );
