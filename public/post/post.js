@@ -227,8 +227,9 @@ postDeleteButton.addEventListener('click', (e) => {
 cancelPostDeleteButton.addEventListener('click', closePostModal);
 
 // 확인 버튼 클릭 시 [TODO] 실제 삭제 및 모달 닫기
-confirmPostDeleteButton.addEventListener('click', () => {
+confirmPostDeleteButton.addEventListener('click', async () => {
     closePostModal();
+    await deletePost(postID);
 });
 
 cancelCommentDeleteButton.addEventListener('click', closeCommentModal);
@@ -356,8 +357,6 @@ async function editComment(commentId) {
 }
 
 async function deleteComment(commentId) {
-    console.log(commentId);
-
     const deleteCommentUrl = `${hostUrl}${serverVersion}/comments/${commentId}`;
 
     try {
@@ -382,9 +381,6 @@ async function deleteComment(commentId) {
 
 
 async function handleLike(postId) {
-    const likeButton = document.getElementById("like-button");
-    const likeCountElement = document.getElementById("like-count");
-
     const likePostUrl = `${hostUrl}${serverVersion}/likes`
     const likeDeleteUrl = `${hostUrl}${serverVersion}/likes/${postId}`;
     console.log(isLiked);
@@ -439,6 +435,29 @@ async function checkLike(postId) {
             isLiked = false;
             likeButton.style.background = '#D9D9D9';
         }
+    }
+}
+
+async function deletePost(postId){
+    const deletePostUrl = `${hostUrl}${serverVersion}/boards/${postId}`;
+
+    try {
+        const response = await fetch(deletePostUrl, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (response.ok) {
+            window.location.href = `/board`;
+        } else {
+            // 에러 처리
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('댓글 삭제 중 오류 발생:', error);
+        alert('댓글 삭제 중 오류가 발생했습니다.');
     }
 }
 
