@@ -45,6 +45,17 @@ async function loadData() {
                 buttonText.textContent='댓글 수정';
             })
         })
+
+        const commentDeleteButton = document.querySelectorAll('#comment-delete');
+        commentDeleteButton.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const commentSection = button.closest('.comment-check-section');
+                const commentId = commentSection.dataset.commentId;
+                console.log('댓글 삭제 버튼 눌림', commentId);
+                openCommentModal(commentId);
+            });
+        });
     } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
     } 
@@ -110,18 +121,9 @@ function renderPost(data) {
                 </div>
             </div>`;
         commentSection.insertAdjacentHTML('beforeend', commentHTML);
-        const commentDeleteButton = document.querySelectorAll('#comment-delete');
-        commentDeleteButton.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('댓글 삭제 버튼 눌림');
-                openCommentModal();
-            });
-        });
+
     });
 }
-
-
 
 commentSubmitButton.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -181,7 +183,6 @@ async function renderProfile(data){
 document.addEventListener('DOMContentLoaded', async () => {
         await loadProfile();
         await loadData();
-
     }
 );
 
@@ -225,12 +226,19 @@ confirmPostDeleteButton.addEventListener('click', () => {
     closePostModal();
 });
 
+cancelCommentDeleteButton.addEventListener('click', closeCommentModal);
+confirmCommentDeleteButton.addEventListener('click', async () => {
+    if (deleteCommentModal.dataset.commentId) {
+        await deleteComment(deleteCommentModal.dataset.commentId);
+        closeCommentModal();
+    }
+});
 
-
-function openCommentModal() {
+async function openCommentModal(commentId) {
+    deleteCommentModal.dataset.commentId = commentId;
     modalOverlay.style.display = 'block';
     deleteCommentModal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // 스크롤 막기
+    document.body.style.overflow = 'hidden';
 }
 
 function closeCommentModal() {
@@ -238,16 +246,6 @@ function closeCommentModal() {
     deleteCommentModal.style.display = 'none';
     document.body.style.overflow = 'auto'; // 스크롤 허용
 }
-
-
-// 취소 버튼 클릭 시 모달 닫기
-cancelCommentDeleteButton.addEventListener('click', closeCommentModal);
-
-// 확인 버튼 클릭 시 [TODO] 실제 삭제 및 모달 닫기
-confirmCommentDeleteButton.addEventListener('click', () => {
-    // 실제 삭제 로직 추가
-    closeCommentModal();
-});
 
 
 document.querySelector('.arrow-wrap').addEventListener('click', () => {
@@ -349,6 +347,31 @@ async function editComment(commentId) {
     } catch (error) {
         console.error('댓글 수정 중 오류 발생:', error);
         alert('댓글 수정 중 오류가 발생했습니다.');
+    }
+}
+
+async function deleteComment(commentId) {
+    console.log(commentId);
+
+    const deleteCommentUrl = `${hostUrl}${serverVersion}/comments/${commentId}`;
+
+    try {
+        const response = await fetch(deleteCommentUrl, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (response.ok) {
+            await loadData();
+        } else {
+            // 에러 처리
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('댓글 삭제 중 오류 발생:', error);
+        alert('댓글 삭제 중 오류가 발생했습니다.');
     }
 }
 
