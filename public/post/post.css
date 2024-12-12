@@ -482,3 +482,7 @@ header {
     color: #000000;
     border: none;
 }
+
+#like-button{
+    border: none;
+}
