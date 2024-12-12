@@ -11,6 +11,39 @@ function displayFileName() {
         fileNameDisplay.textContent = '선택된 파일 없음';
     }
 }
+function updateButtonState() {
+    const title = document.getElementById('title').value.trim();
+    const content = document.getElementById('content').value.trim();
+    const fileInput = document.getElementById('file');
+    const submitButton = document.querySelector('.submit-part .submit');
+
+    // 모든 필드가 채워졌을 때 버튼 활성화
+    if (title && content && fileInput.files.length > 0) {
+        if(title.length > 26) {
+            submitButton.classList.remove('active');
+            submitButton.disabled = true;
+        }
+        else{
+            submitButton.classList.add('active');
+            submitButton.disabled = false;
+        }
+    }
+    else {
+        submitButton.classList.remove('active');
+        submitButton.disabled = true;
+    }
+}
+
+// 모든 필드에 이벤트 리스너 추가
+function setupInputListeners() {
+    const titleInput = document.getElementById('title');
+    const contentInput = document.getElementById('content');
+    const fileInput = document.getElementById('file');
+
+    titleInput.addEventListener('input', updateButtonState);
+    contentInput.addEventListener('input', updateButtonState);
+    fileInput.addEventListener('change', updateButtonState);
+}
 
 document.querySelector('.arrow-wrap').addEventListener('click', () => {
     window.location.href = `/board`;
@@ -126,5 +159,7 @@ async function renderProfile(data){
 document.addEventListener('DOMContentLoaded', async () => {
         displayFileName();
         loadProfile();
+        setupInputListeners();
+        updateButtonState();
     }
 );
