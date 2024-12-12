@@ -5,6 +5,7 @@ const serverVersion = "v1";
 const path = window.location.pathname;
 const postID = path.split('/')[2];
 let loginUserId;
+let isLiked;
 
 async function loadData() {
     const getPostUrl = `${hostUrl}${serverVersion}/boards/${postID}`;
@@ -56,6 +57,8 @@ async function loadData() {
                 openCommentModal(commentId);
             });
         });
+
+        await checkLike(postID);
     } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
     } 
@@ -183,6 +186,8 @@ async function renderProfile(data){
 document.addEventListener('DOMContentLoaded', async () => {
         await loadProfile();
         await loadData();
+        const likeButton = document.getElementById("like-button");
+        likeButton.addEventListener("click", () => handleLike(postID));
     }
 );
 
@@ -376,7 +381,66 @@ async function deleteComment(commentId) {
 }
 
 
+async function handleLike(postId) {
+    const likeButton = document.getElementById("like-button");
+    const likeCountElement = document.getElementById("like-count");
 
+    const likePostUrl = `${hostUrl}${serverVersion}/likes`
+    const likeDeleteUrl = `${hostUrl}${serverVersion}/likes/${postId}`;
+    console.log(isLiked);
+    const method = isLiked ? "DELETE" : "POST"; // 좋아요 취소: DELETE, 좋아요 추가: POST
+    const url = isLiked ? likeDeleteUrl : likePostUrl;
+
+    console.log(postId);
+    try {
+        const response = await fetch(url, {
+            method: method,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                board_id: postId,
+            })
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (response.ok) {
+            await loadData();
+        } else {
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('댓글 삭제 중 오류 발생:', error);
+        alert('댓글 삭제 중 오류가 발생했습니다.');
+    }
+}
+
+async function checkLike(postId) {
+    const likeButton = document.getElementById("like-button");
+    const getLikeUrl = `${hostUrl}${serverVersion}/likes/${postId}`;
+
+    const response = await fetch(getLikeUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+    if(response.ok) {
+        if(responseData.data.isLiked){
+            isLiked = true;
+            likeButton.style.background = '#ACA0EB';
+        } else{
+            isLiked = false;
+            likeButton.style.background = '#D9D9D9';
+        }
+    }
+}
 
 function handleError(message) {
     switch (message) {
