@@ -53,10 +53,9 @@ accountDeleteButton.addEventListener('click', (e) => {
 // 취소 버튼 클릭 시 모달 닫기
 cancelAccountDeleteButton.addEventListener('click', closeDeleteModal);
 
-confirmAccountDeleteButton.addEventListener('click', () => {
-    // TODO: 회원탈퇴 로직
+confirmAccountDeleteButton.addEventListener('click', async () => {
     closeDeleteModal();
-    window.location.href = `/login`;
+    await deleteUser();
 });
 
 changeProfileBtn.addEventListener('click', () => {
@@ -176,6 +175,28 @@ async function patchProfile() {
     }
 }
 
+
+async function deleteUser(){
+    const deleteUserUrl = `${hostUrl}${serverVersion}/users`;
+    try{
+        const response = await fetch(deleteUserUrl, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (response.ok){
+            window.location.href = `/login`;
+        } else{
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('회원 탈퇴 중 오류 발생:', error);
+        alert('회원 탈퇴 중 오류가 발생했습니다.');
+    }
+}
+
 function handleError(status, message) {
     const errorMessage = document.getElementById('nicknameError'); // 에러 메시지 영역
 
@@ -205,6 +226,7 @@ function handleError(status, message) {
     }
     errorMessage.style.display = 'block';
 }
+
 
 // 초기 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {

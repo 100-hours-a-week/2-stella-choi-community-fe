@@ -196,8 +196,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         if (isValid) {
+            joinBtn.classList.add('active');
             await fetchData(); // 모든 입력이 유효할 경우만 서버 요청
             // window.location.href = `/login`; // 성공 시 로그인 페이지로 이동
+        } else {
+            joinBtn.classList.remove('active');
         }
     });
 });
