@@ -28,6 +28,23 @@ async function loadData() {
         console.log(data);
 
         await renderPost(data);
+
+        document.querySelectorAll('#comment-edit').forEach(button => {
+            button.addEventListener('click', (e)=>{
+                e.preventDefault();
+                e.stopPropagation();
+                const commentSection = button.closest('.comment-check-section');
+                const commentId = commentSection.dataset.commentId;
+                console.log('댓글 수정 버튼 눌림', commentSection.dataset.commentId);
+                const commentContent = commentSection.querySelector('.comment-data').textContent;
+
+                isEditing = true;
+                editingCommentId = commentId;
+
+                commentInput.value = commentContent;
+                buttonText.textContent='댓글 수정';
+            })
+        })
     } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
     } 
@@ -101,37 +118,22 @@ function renderPost(data) {
                 openCommentModal();
             });
         });
-
-        document.querySelectorAll('#comment-edit').forEach(button => {
-            button.addEventListener('click', (e)=>{
-                e.preventDefault();
-                console.log('댓글 수정 버튼 눌림');
-                const commentSection = button.closest('.comment-check-section');
-                const commentId = commentSection.dataset.commentId;
-                const commentContent = commentSection.querySelector('.comment-data').textContent;
-
-                isEditing = true;
-                editingCommentId = commentId;
-
-                commentInput.value = commentContent;
-                buttonText.textContent='댓글 수정';
-            })
-        })
     });
 }
 
-commentSubmitButton.addEventListener('click', (e) => {
+
+
+commentSubmitButton.addEventListener('click', async (e) => {
     e.preventDefault();
     const newCommentContent = commentInput.value;
-
+    console.log(isEditing);
     if(isEditing){
         const commentToEdit = document.querySelector(`.comment-check-section[data-comment-id="${editingCommentId}"]`);
         commentToEdit.querySelector('.comment-data').textContent = newCommentContent;
 
+        await editComment(editingCommentId);
         isEditing = false;
         editingCommentId = null;
-        buttonText.textContent = '댓글 등록';
-        commentInput.value = '';
     }
     else{
         createComment();
@@ -179,6 +181,7 @@ async function renderProfile(data){
 document.addEventListener('DOMContentLoaded', async () => {
         await loadProfile();
         await loadData();
+
     }
 );
 
@@ -304,5 +307,78 @@ async function createComment() {
     } catch (error) {
         console.error('댓글 작성 중 오류 발생:', error);
         alert('댓글 작성 중 오류가 발생했습니다.');
+    }
+}
+
+
+
+async function editComment(commentId) {
+    console.log(commentId);
+    const commentContent = commentInput.value.trim();
+    console.log(commentContent);
+    if (!commentContent) {
+        alert('댓글 내용을 입력해주세요.');
+        return;
+    }
+
+    const editCommentUrl = `${hostUrl}${serverVersion}/comments/${commentId}`;
+
+    try {
+        const response = await fetch(editCommentUrl, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: commentContent,
+            })
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (response.ok) {
+            commentInput.value = ''; // 입력 필드 초기화
+            buttonText.textContent = '댓글 등록'; // 버튼 텍스트 초기화
+
+            await loadData();
+        } else {
+            // 에러 처리
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('댓글 수정 중 오류 발생:', error);
+        alert('댓글 수정 중 오류가 발생했습니다.');
+    }
+}
+
+
+
+
+function handleError(message) {
+    switch (message) {
+        case 'MISSING_FIELD':
+            alert('필수 입력 항목이 누락되었습니다.');
+            break;
+        case 'INVALID_FORMAT':
+            alert('ID는 숫자여야 합니다');
+            break;
+        case 'INVALID_TITLE':
+            alert('제목 조건에 맞지 않습니다.');
+            break;
+        case 'MISSING_SESSION':
+            alert('세션 정보가 없습니다.');
+            break;
+        case 'ACCESS_DENIED':
+            alert('수정 및 삭제 권한이 없습니다.');
+            break;
+        case 'UNAUTHORIZED':
+            alert('권한이 없습니다.');
+            break;
+        case 'NOT_FOUND_USER':
+            alert('해당 사용자를 찾을 수 없습니다.');
+            break;
+        default:
+            alert('서버 오류가 발생했습니다.');
     }
 }
