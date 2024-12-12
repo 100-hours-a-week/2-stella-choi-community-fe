@@ -363,6 +363,7 @@ header {
     font-weight: 700;
     line-height: 19.5px;
     text-align: left;
+    width: 87px;
 }
 
 .comment-date{
@@ -381,6 +382,12 @@ header {
 
 .comment-controls{
     display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.comment-controls.hidden {
+    visibility : hidden;
     flex-direction: row;
     gap: 8px;
 }
