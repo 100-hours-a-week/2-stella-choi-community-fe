@@ -22,6 +22,7 @@ body {
 .helper-text {
     color: #f44336;
     font-size: 12px;
+    text-align: left;
     display: none;
 }
 
@@ -38,10 +39,9 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     justify-content: space-between;
-    width: 592px;
-    padding-right: 29px;
-    padding-left: 196px;
+    width: 544px;
 }
 
 .wrapper{
