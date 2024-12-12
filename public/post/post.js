@@ -4,6 +4,7 @@ const serverVersion = "v1";
 
 const path = window.location.pathname;
 const postID = path.split('/')[2];
+let loginUserId;
 
 async function loadData() {
     const getPostUrl = `${hostUrl}${serverVersion}/boards/${postID}`;
@@ -45,6 +46,13 @@ function renderPost(data) {
     document.querySelector('.post-date').textContent = data.date;
     document.querySelector('.post-text .text').textContent = data.content;
 
+    if(loginUserId !== data.user_id){
+        const postEditElement = document.querySelector('.edit-button');
+        const postDeleteElement = document.querySelector('.delete-button');
+        postEditElement.style.display = 'none';
+        postDeleteElement.style.display = 'none';
+    }
+
     const postImageElement = document.querySelector('.post-image');
     if (postImage) {
         postImageElement.src = postImage; // 이미지가 존재하면 설정
@@ -52,6 +60,8 @@ function renderPost(data) {
     } else {
         postImageElement.style.display = 'none'; // 이미지가 없으면 감추기
     }
+
+
     document.querySelectorAll('.stat-num')[0].textContent = data.likes_count;
     document.querySelectorAll('.stat-num')[1].textContent = data.view_count;
     document.querySelectorAll('.stat-num')[2].textContent = data.comment_count;
@@ -151,6 +161,7 @@ async function loadProfile(){
         const responseData = await response.json();
         const { data } = responseData;
         console.log(data);
+        loginUserId = data.user_id;
         const profileImage = staticUrl + data.profile_image;
         await renderProfile(profileImage);
     } catch (error) {
@@ -167,8 +178,8 @@ async function renderProfile(data){
 
 // 초기 데이터 로드
 document.addEventListener('DOMContentLoaded', async () => {
-        loadData();
-        loadProfile();
+        await loadProfile();
+        await loadData();
     }
 );
 
