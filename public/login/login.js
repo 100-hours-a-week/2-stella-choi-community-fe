@@ -79,7 +79,7 @@ const handleResponse = async (response) => {
                 showError(passwordError, "아이디 또는 비밀번호를 확인해주세요.");
                 break;
             case "NO_USER":
-                showError(emailError, "올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)");
+                showError(emailError, "아이디 또는 비밀번호를 확인해주세요.");
                 break;
             case "INTERNAL_SERVER_ERROR":
                 alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
