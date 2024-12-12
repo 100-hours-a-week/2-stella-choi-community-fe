@@ -37,6 +37,9 @@ const commentInput = document.querySelector('.comment-textarea');
 const commentSubmitButton = document.querySelector('.submit-comment');
 const buttonText = document.querySelector('.comment-text');
 
+let isEditing = false;
+let editingCommentId = null;
+
 function renderPost(data) {
     const profileImage = staticUrl + data.user_profile;
     const postImage = data.post_image ? staticUrl + data.post_image : null;
@@ -68,9 +71,6 @@ function renderPost(data) {
 
     const commentSection = document.querySelector('.comment-part');
     commentSection.innerHTML = '';
-    
-    let isEditing = false;
-    let editingCommentId = null;
 
     data.comments.forEach(comment => {
         const commentHTML = `
@@ -81,15 +81,15 @@ function renderPost(data) {
                     <img src="${staticUrl + comment.comment_writer_profile}" alt="profile-user-img" class="profile-user-real-img">
                     </div>
                     <span class="comment-author">${comment.comment_writer}</span>
-                    <span class="comment-date">2021-01-01 00:00:00</span>
+                    <span class="comment-date">${comment.comment_posted_time}</span>
                 </div>
                 <div class="comment-content">
                     <span class="comment-data">${comment.comment_data}</span>
                 </div>
                 </div>
-                <div class="comment-controls">
-                <button class="edit-button" id="comment-edit">수정</button>
-                <button class="delete-button" id="comment-delete">삭제</button>
+                <div class="comment-controls ${comment.comment_writer_id === loginUserId ? '' : 'hidden'}">
+                    <button class="edit-button" id="comment-edit">수정</button>
+                    <button class="delete-button" id="comment-delete">삭제</button>
                 </div>
             </div>`;
         commentSection.insertAdjacentHTML('beforeend', commentHTML);
@@ -117,28 +117,27 @@ function renderPost(data) {
                 buttonText.textContent='댓글 수정';
             })
         })
-
-        commentSubmitButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const newCommentContent = commentInput.value;
-
-            if(isEditing){
-                const commentToEdit = document.querySelector(`.comment-check-section[data-comment-id="${editingCommentId}"]`);
-                commentToEdit.querySelector('.comment-data').textContent = newCommentContent;
-
-                isEditing = false;
-                editingCommentId = null;
-                buttonText.textContent = '댓글 등록'; 
-                commentInput.value = ''; 
-            }
-            else{
-                // ✅ [TODO] 댓글 등록 로직
-                console.log("댓글 등록:", newCommentContent);
-            }
-        })
     });
 }
 
+commentSubmitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const newCommentContent = commentInput.value;
+
+    if(isEditing){
+        const commentToEdit = document.querySelector(`.comment-check-section[data-comment-id="${editingCommentId}"]`);
+        commentToEdit.querySelector('.comment-data').textContent = newCommentContent;
+
+        isEditing = false;
+        editingCommentId = null;
+        buttonText.textContent = '댓글 등록';
+        commentInput.value = '';
+    }
+    else{
+        createComment();
+        console.log("댓글 등록:", newCommentContent);
+    }
+})
 
 async function loadProfile(){
     const getProfileUrl = `${hostUrl}${serverVersion}/users`;
@@ -267,3 +266,43 @@ commentInput.addEventListener('input', function () {
         commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
     }
 });
+
+async function createComment() {
+    const commentContent = commentInput.value.trim();
+
+    if (!commentContent) {
+        alert('댓글 내용을 입력해주세요.');
+        return;
+    }
+
+    const createCommentUrl = `${hostUrl}${serverVersion}/comments`;
+
+    try {
+        const response = await fetch(createCommentUrl, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: commentContent,
+                board_id: postID,
+            })
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+            commentInput.value = ''; // 입력 필드 초기화
+            buttonText.textContent = '댓글 등록'; // 버튼 텍스트 초기화
+
+            await loadData();
+        } else {
+            // 에러 처리
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('댓글 작성 중 오류 발생:', error);
+        alert('댓글 작성 중 오류가 발생했습니다.');
+    }
+}
