@@ -138,7 +138,7 @@ async function loadProfile(){
     }
 }
 
-async function renderProfile(data){
+const renderProfile = async (data) => {
     const profileImage = document.querySelector('.profile-user-real-img');
     profileImage.src = data;
 }

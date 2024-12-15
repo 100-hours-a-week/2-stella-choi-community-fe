@@ -1,6 +1,9 @@
 // routes/mainRoutes.js
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 router.get('/login', (req, res) => {
@@ -36,4 +39,4 @@ router.get('/editpassword', (req, res) => {
 });
 
 
-module.exports = router;
+export default router;
