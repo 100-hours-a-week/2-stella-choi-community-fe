@@ -1,11 +1,15 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const path = require('path');
-const mainRoutes = require('./routes/mainRoutes');
+import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import router from './routes/mainRoutes.js';
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', mainRoutes);
+app.use('/', router);
 
 app.listen(3000, function() {
     console.log("[💥 시작] : frontend 서버");
