@@ -64,7 +64,7 @@ const handleResponse = async (response) => {
     if (response.ok) {
         alert("로그인되었습니다.");
         console.log(responseBody);
-        // window.location.href = "/board";
+        window.location.href = "/board";
     } else {
         // 에러 메시지와 상태 코드에 따라 분기 처리
         switch (responseBody.message) {
