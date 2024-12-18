@@ -1,8 +1,3 @@
-const hostUrl = "http://localhost:8080/api/";
-const staticUrl = "http://localhost:8080/";
-const serverVersion = "v1";
-
-
 document.querySelector('.create-post-btn').addEventListener('click', () => {
     window.location.href = `/makepost`;
 });

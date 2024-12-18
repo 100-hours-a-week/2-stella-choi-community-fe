@@ -1,7 +1,3 @@
-const hostUrl = "http://localhost:8080/api/";
-const staticUrl = "http://localhost:8080/";
-const serverVersion = "v1";
-
 const deleteAccountModal = document.getElementById('delete-account-modal');
 const modalOverlay = document.getElementById('modal-overlay');
 const accountDeleteButton = document.querySelector('.leave-btn');
