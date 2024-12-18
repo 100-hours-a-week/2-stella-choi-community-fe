@@ -1,6 +1,3 @@
-const hostUrl = "http://localhost:8080/api/";
-const serverVersion = "v1";
-
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const passwordAgainInput = document.getElementById("passwordAgain");

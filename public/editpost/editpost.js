@@ -1,8 +1,3 @@
-const hostUrl = "http://localhost:8080/api/";
-const staticUrl = "http://localhost:8080/";
-const serverVersion = "v1";
-
-
 const path = window.location.pathname;
 const postID = path.split('/')[2];
 let existingImageFile = null;

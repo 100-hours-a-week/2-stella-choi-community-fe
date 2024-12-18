@@ -1,7 +1,3 @@
-const hostUrl = "http://localhost:8080/api/";
-const staticUrl = "http://localhost:8080/";
-const serverVersion = "v1";
-
 const passwordInput = document.getElementById('password');
 const passwordCheckInput = document.getElementById('passwordcheck');
 const passwordError = document.getElementById('passwordError');

@@ -1,7 +1,3 @@
-const hostUrl = "http://localhost:8080/api/";
-const staticUrl = "http://localhost:8080/";
-const serverVersion = "v1";
-
 function displayFileName() {
     const fileInput = document.getElementById('file');
     const fileNameDisplay = document.getElementById('file-name');
