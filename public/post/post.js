@@ -103,20 +103,20 @@ function renderPost(data) {
         const commentHTML = `
             <div class="comment-check-section" data-comment-id="${comment.comment_id}">
                 <div class="comment-info-part">
-                <div class="comment-info">
-                    <div class="profile-user-img">
-                    <img src="${staticUrl + comment.comment_writer_profile}" alt="profile-user-img" class="profile-user-real-img">
+                    <div class="comment-info">
+                        <div class="profile-user-img">
+                        <img src="${staticUrl + comment.comment_writer_profile}" alt="profile-user-img" class="profile-user-real-img">
+                        </div>
+                        <span class="comment-author">${comment.comment_writer}</span>
+                        <span class="comment-date">${comment.comment_posted_time}</span>
                     </div>
-                    <span class="comment-author">${comment.comment_writer}</span>
-                    <span class="comment-date">${comment.comment_posted_time}</span>
-                </div>
+                     <div class="comment-controls ${comment.comment_writer_id === loginUserId ? '' : 'hidden'}">
+                            <button class="edit-button" id="comment-edit">수정</button>
+                            <button class="delete-button" id="comment-delete">삭제</button>
+                     </div>
+                 </div>    
                 <div class="comment-content">
-                    <span class="comment-data">${comment.comment_data}</span>
-                </div>
-                </div>
-                <div class="comment-controls ${comment.comment_writer_id === loginUserId ? '' : 'hidden'}">
-                    <button class="edit-button" id="comment-edit">수정</button>
-                    <button class="delete-button" id="comment-delete">삭제</button>
+                        <div class="comment-data">${comment.comment_data}</div>
                 </div>
             </div>`;
         commentSection.insertAdjacentHTML('beforeend', commentHTML);
