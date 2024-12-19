@@ -13,6 +13,8 @@ const nicknameError = document.getElementById("nicknameError");
 const imageProfileAddContainer = document.getElementById('imageProfileAddContainer');
 const profileImageInput = document.getElementById('profileImageInput');
 const circle = document.getElementById('circle');
+const plus = document.querySelector(".plus");
+
 
 const showError = (errorElement, message) => {
     errorElement.style.display = "block";
@@ -65,10 +67,10 @@ const handleResponse = async (response) => {
                 alert("입력 형식이 올바르지 않습니다. 비밀번호, 이메일 또는 닉네임을 확인하세요.");
                 break;
             case "DUPLICATE_EMAIL":
-                showError(emailError, "이미 사용 중인 이메일입니다.");
+                showError(emailError, "중복된 이메일입니다.");
                 break;
             case "DUPLICATE_NICKNAME":
-                showError(nicknameError, "이미 사용 중인 닉네임입니다.");
+                showError(nicknameError, "중복된 닉네임입니다.");
                 break;
             case "INTERNAL_SERVER_ERROR":
                 alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
@@ -95,14 +97,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             const reader = new FileReader();
             reader.onload = function (e) {
                 hideError(profileError);
-                // `circle` 내용을 업로드한 이미지로 대체
-                circle.style.backgroundImage = `url(${e.target.result})`;
-                circle.style.backgroundSize = 'cover';
-                circle.style.backgroundPosition = 'center';
-                circle.style.backgroundColor = 'transparent';
-                circle.innerHTML = '';
+                let imgElement = circle.querySelector("img");
+                if (!imgElement) {
+                    imgElement = document.createElement("img");
+                    plus.style.display = "none";
+                    circle.appendChild(imgElement);
+                }
+                imgElement.src = e.target.result;
+                imgElement.style.display = "block";
+
             };
             reader.readAsDataURL(file);
+        } else {
+            const imgElement = circle.querySelector("img");
+            if (imgElement) {
+                imgElement.remove();
+            }
+            plus.style.display = "block";
         }
     });
 
@@ -127,6 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     hideError(profileError);
                     return true;
                 }
+                break;
             case "email":
                 if (!field.value) {
                     showError(emailError, "이메일을 입력해주세요.");
@@ -138,6 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     hideError(emailError);
                     return true;
                 }
+                break;
             case "password":
                 if (!field.value) {
                     showError(passwordError, "비밀번호를 입력해주세요.");
@@ -149,9 +162,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     hideError(passwordError);
                     return true;
                 }
+                break;
             case "passwordAgain":
                 if (!field.value) {
-                    showError(passwordAgainError, "비밀번호 확인을 입력해주세요.");
+                    showError(passwordAgainError, "비밀번호를 한번 더 입력해주세요.");
                     return false;
                 } else if (field.value !== passwordInput.value) {
                     showError(passwordAgainError, "비밀번호가 일치하지 않습니다.");
@@ -160,19 +174,39 @@ document.addEventListener('DOMContentLoaded', async () => {
                     hideError(passwordAgainError);
                     return true;
                 }
+                break;
             case "nickname":
                 if (!field.value) {
                     showError(nicknameError, "닉네임을 입력해주세요.");
                     return false;
                 } else if (field.value.length > 10) {
-                    showError(nicknameError, "닉네임은 최대 10자까지 가능합니다.");
+                    showError(nicknameError, "닉네임은 최대 10자까지 작성 가능합니다.");
+                    return false;
+                } else if (field.value.match(/\s/g)) {
+                    showError(nicknameError, "띄어쓰기를 없애주세요.");
                     return false;
                 } else {
                     hideError(nicknameError);
                     return true;
                 }
-            default:
-                return true;
+                break;
+        }
+    };
+
+    const handleInputChange = () => {
+        let isValid = true;
+
+        [profileImageInput, emailInput, passwordInput, passwordAgainInput, nicknameInput].forEach((input) => {
+            if (!validateField(input)) {
+                isValid = false;
+            }
+        });
+
+        console.log(isValid);
+        if (isValid) {
+            joinBtn.classList.add('active');
+        } else {
+            joinBtn.classList.remove('active');
         }
     };
 
@@ -180,7 +214,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         input.addEventListener("blur", () => {
             validateField(input);
         });
+        input.addEventListener("change", ()=>{
+
+            handleInputChange();
+        });
     });
+
+
 
     joinBtn.addEventListener("click",  async (e) => {
         e.preventDefault(); // 폼 제출 방지
@@ -195,7 +235,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (isValid) {
             joinBtn.classList.add('active');
             await fetchData(); // 모든 입력이 유효할 경우만 서버 요청
-            // window.location.href = `/login`; // 성공 시 로그인 페이지로 이동
         } else {
             joinBtn.classList.remove('active');
         }

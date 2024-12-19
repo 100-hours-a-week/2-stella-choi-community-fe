@@ -13,6 +13,7 @@ body {
     color: #f44336;
     font-size: 12px;
     display: none;
+    width: 355px;
 }
 
 .container {
@@ -119,10 +120,18 @@ header {
     align-items: center;
 }
 
+.circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지를 원 크기에 맞게 */
+    border-radius: 50%; /* 원형 유지 */
+    display: none; /* 업로드 전까지 숨김 */
+}
+
 .plus {
     font-weight: 100;
     font-size: 60px;
-    color: #333; /* Adjust color as needed */
+    color: #333;
 }
 
 #profilePreview{
