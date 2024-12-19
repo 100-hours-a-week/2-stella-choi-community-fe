@@ -178,10 +178,35 @@ async function renderProfile(data){
     profileImage.src = data;
 }
 
+async function postViewcount(){
+    const viewPostUrl = `${hostUrl}${serverVersion}/boards/${postID}/view`
+
+    try {
+        const response = await fetch(viewPostUrl, {
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (response.ok) {
+            await loadData();
+        } else {
+            handleError(responseData.message);
+        }
+    } catch (error) {
+        console.error('댓글 삭제 중 오류 발생:', error);
+        alert('댓글 삭제 중 오류가 발생했습니다.');
+    }
+}
 // 초기 데이터 로드
 document.addEventListener('DOMContentLoaded', async () => {
         await loadProfile();
         await loadData();
+        await postViewcount();
         const likeButton = document.getElementById("like-button");
         likeButton.addEventListener("click", () => handleLike(postID));
     }
