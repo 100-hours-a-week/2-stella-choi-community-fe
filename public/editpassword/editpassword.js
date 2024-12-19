@@ -163,28 +163,29 @@ async function editPassword(){
         password_check: passwordcheck
     };
 
+    if(validatePasswordMatch()){
+        try {
+            const response = await fetch(editPasswordUrl, {
+                method: 'PATCH',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(passwordData)
+            });
 
-    try {
-        const response = await fetch(editPasswordUrl, {
-            method: 'PATCH',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(passwordData)
-        });
+            const responseData = await response.json();
+            console.log(responseData);
 
-        const responseData = await response.json();
-        console.log(responseData);
-
-        if (response.ok) {
-            showToast('수정완료');
-        } else {
-            handleError(response.status, responseData.message);
+            if (response.ok) {
+                showToast('수정완료');
+            } else {
+                handleError(response.status, responseData.message);
+            }
+        } catch (error) {
+            console.error("비밀번호 수정 중 오류 발생:", error);
+            alert('오류가 발생했습니다. 다시 시도해주세요.');
         }
-    } catch (error) {
-        console.error("비밀번호 수정 중 오류 발생:", error);
-        alert('오류가 발생했습니다. 다시 시도해주세요.');
     }
 }
 

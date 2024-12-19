@@ -7,6 +7,7 @@ const editButton = document.querySelector('.edit-btn');
 const profileImgInput = document.getElementById('profileImgInput');
 const profileEditImg = document.getElementById('profileEditImg');
 const changeProfileBtn = document.getElementById('changeProfileBtn');
+const nicknameInput = document.querySelector('.input-form'); // 닉네임 입력 필드
 
 function openDeleteModal() {
     modalOverlay.style.display = 'block';
@@ -34,6 +35,7 @@ function showToast(message) {
         toastMessage.remove();
     }, 5000);
 }
+
 
 editButton.addEventListener('click', async () => {
     await patchProfile();
@@ -110,7 +112,6 @@ async function renderProfile(data){
 }
 
 function validateNickname() {
-    const nicknameInput = document.querySelector('.input-form'); // 닉네임 입력 필드
     const errorMessage = document.getElementById('nicknameError'); // 에러 메시지 영역
     const submitButton = document.querySelector('.edit-btn'); // 제출 버튼
 
@@ -228,4 +229,5 @@ function handleError(status, message) {
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
     setupNicknameValidation();
+    nicknameInput.addEventListener('blur', validateNickname);
 });
