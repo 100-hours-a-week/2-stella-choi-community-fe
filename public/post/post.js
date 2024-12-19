@@ -139,10 +139,12 @@ commentSubmitButton.addEventListener('click', async (e) => {
         editingCommentId = null;
     }
     else{
-        createComment();
-        commentSubmitButton.disabled = true;
-        commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
-        console.log("댓글 등록:", newCommentContent);
+        if(newCommentContent){
+            createComment();
+            commentSubmitButton.disabled = true;
+            commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
+            console.log("댓글 등록:", newCommentContent);
+        }
     }
 })
 
