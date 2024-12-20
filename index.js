@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', router);
 
 app.get('/', (req, res) => {
-    res.send('헬로 월드🌸');
+    res.send('헬로 월드💥');
 });
 
 app.listen(3000, function() {
