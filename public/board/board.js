@@ -47,39 +47,55 @@ async function loadData() {
     }
 }
 
+const formatTime = async (stringDate) => {
+    const date = new Date(stringDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+}
+
 async function renderData(data) {
     const postList = document.querySelector('.post-list');
-    data.forEach(post => {
-        const formatNumber = num => num >= 1000 ? `${(num / 1000).toFixed(1)}k` : num;
 
-        const postItem = document.createElement('div');
-        const profileImage = staticUrl + post.user_profile;
-        postItem.classList.add('post-item');
-        postItem.innerHTML = `
-            <div class="post-header">
-                <span class="post-title">${post.title.length > 26 ? post.title.substring(0, 26) + '...' : post.title}</span>
-                <div class="info-part">
-                    <div class="post-info">
-                        <span class="like-info">좋아요 ${formatNumber(post.likes_count)}</span>
-                        <span class="comment-info">댓글 ${formatNumber(post.comment_count)}</span>
-                        <span class="view-info">조회수 ${formatNumber(post.view_count)}</span>
-                    </div>
-                    <span class="post-date">${post.posted_time}</span>
-                </div> 
-            </div>
-            <hr class="border-line">
-            <div class="writer-header">
-                <img src="${profileImage}" alt="${post.user_name}" loading="lazy" class="profile-user-img">
-                <span class="writer-info">${post.user_name}</span>
-            </div>
-        `;
-        postList.appendChild(postItem);
+    const postElements = await Promise.all(
+        data.map(async (post) => {
+            const formatNumber = num => num >= 1000 ? `${(num / 1000).toFixed(1)}k` : num;
+            const formattedTime = await formatTime(post.posted_time);
 
-        // 카드 클릭 시 상세 페이지로 이동
-        postItem.addEventListener('click', () => {
-            window.location.href = `/post/${post.post_id}`;
-        });
-    });
+            const profileImage = staticUrl + post.user_profile;
+            const postItem = document.createElement('div');
+            postItem.classList.add('post-item');
+            postItem.innerHTML = `
+                <div class="post-header">
+                    <span class="post-title">${post.title.length > 26 ? post.title.substring(0, 26) + '...' : post.title}</span>
+                    <div class="info-part">
+                        <div class="post-info">
+                            <span class="like-info">좋아요 ${formatNumber(post.likes_count)}</span>
+                            <span class="comment-info">댓글 ${formatNumber(post.comment_count)}</span>
+                            <span class="view-info">조회수 ${formatNumber(post.view_count)}</span>
+                        </div>
+                        <span class="post-date">${formattedTime}</span>
+                    </div> 
+                </div>
+                <hr class="border-line">
+                <div class="writer-header">
+                    <img src="${profileImage}" alt="${post.user_name}" loading="lazy" class="profile-user-img">
+                    <span class="writer-info">${post.user_name}</span>
+                </div>
+            `;
+            postItem.addEventListener('click', () => {
+                window.location.href = `/post/${post.post_id}`;
+            });
+            return postItem;
+        })
+    );
+
+    postElements.forEach(postItem => postList.appendChild(postItem));
 }
 
 const handleError = async (response) => {

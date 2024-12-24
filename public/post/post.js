@@ -67,6 +67,18 @@ const buttonText = document.querySelector('.comment-text');
 let isEditing = false;
 let editingCommentId = null;
 
+const formatTime = async (stringDate) => {
+    const date = new Date(stringDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+}
+
 function renderPost(data) {
     const profileImage = staticUrl + data.user_profile;
     const postImage = data.post_image ? staticUrl + data.post_image : null;
@@ -99,7 +111,8 @@ function renderPost(data) {
     const commentSection = document.querySelector('.comment-part');
     commentSection.innerHTML = '';
 
-    data.comments.forEach(comment => {
+    data.comments.forEach(async (comment) => {
+        const formattedTime = await formatTime(comment.comment_posted_time);
         const commentHTML = `
             <div class="comment-check-section" data-comment-id="${comment.comment_id}">
                 <div class="comment-info-part">
@@ -108,7 +121,7 @@ function renderPost(data) {
                         <img src="${staticUrl + comment.comment_writer_profile}" alt="profile-user-img" class="profile-user-real-img">
                         </div>
                         <span class="comment-author">${comment.comment_writer}</span>
-                        <span class="comment-date">${comment.comment_posted_time}</span>
+                        <span class="comment-date">${formattedTime}</span>
                     </div>
                      <div class="comment-controls ${comment.comment_writer_id === loginUserId ? '' : 'hidden'}">
                             <button class="edit-button" id="comment-edit">수정</button>
