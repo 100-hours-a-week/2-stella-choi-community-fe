@@ -24,16 +24,23 @@ function closeDeleteModal() {
 function showToast(message) {
     const toastContainer = document.getElementById('toast-container');
 
+    const existingMessage = Array.from(toastContainer.children).find(
+        (child) => child.textContent === message
+    );
+
+    if (existingMessage) {
+        return;
+    }
+
     const toastMessage = document.createElement('div');
     toastMessage.classList.add('toast-message');
     toastMessage.textContent = message;
 
     toastContainer.appendChild(toastMessage);
 
-    // 20초 후 메시지 제거
     setTimeout(() => {
         toastMessage.remove();
-    }, 5000);
+    }, 2000);
 }
 
 
