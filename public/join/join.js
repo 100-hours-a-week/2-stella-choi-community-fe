@@ -85,6 +85,11 @@ document.querySelector('.actions').addEventListener('click', () => {
     window.location.href = `/login`;
 });
 
+document.querySelector('.arrow-wrap').addEventListener('click', () => {
+    window.location.href = `/login`;
+});
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     imageProfileAddContainer.addEventListener('click', () => {
         profileImageInput.click();
