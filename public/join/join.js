@@ -129,9 +129,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d@$!%*?&^#(){}[\]<>.,~`+=:;|'"\-_\\\/]{8,}$/;
         return passwordRegex.test(password);
     };
+
 
     const validateField = (field) => {
         switch (field.id) {
