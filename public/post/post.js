@@ -275,6 +275,13 @@ confirmPostDeleteButton.addEventListener('click', async () => {
 cancelCommentDeleteButton.addEventListener('click', closeCommentModal);
 confirmCommentDeleteButton.addEventListener('click', async () => {
     if (deleteCommentModal.dataset.commentId) {
+        const commentId = deleteCommentModal.dataset.commentId;
+        if (isEditing && editingCommentId === commentId) {
+            isEditing = false;
+            editingCommentId = null;
+            commentInput.value = '';
+            buttonText.textContent = '댓글 등록';
+        }
         await deleteComment(deleteCommentModal.dataset.commentId);
         closeCommentModal();
     }
