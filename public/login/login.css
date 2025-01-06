@@ -1,10 +1,19 @@
 :root {
-    --color-background: #f5f5f5;
-    --color-primary: #2F3E46;
-    --color-secondary: #84A98C;
-    --color-accent: #52796F;
-    --color-text-light: #f5f5f5;
+    --color-background: #0A0F16;
+    --color-primary: #FFB1CD;
+    --color-secondary: #ccd0da;
+    --color-accent: #FFB1CD;
+    --color-text-light: #FFFFFF;
+    --color-text-lighter: #ccd0da;
     --color-error: #f44336;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-text-light); /* 텍스트 색상 변경 */
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset; /* 배경색 덮어쓰기 */
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s; /* 부드러운 전환 */
+    border: 1px solid var(--color-primary); /* 테두리 스타일 */
 }
 
 * {
@@ -32,7 +41,7 @@ header {
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid;
-    background-color: var(--color-primary);
+    background-color: rgba(254, 168, 197, 0.9);
     color: var(--color-text-light);
     border-radius: 1.5rem;
     z-index: 1000;
@@ -40,9 +49,12 @@ header {
 }
 
 .header-name {
-    font-family: "Moirai One";
-    font-size: 28px;
-    font-weight: 700;
+    letter-spacing: 3px;
+    font-family: "Jersey 10", serif;
+    font-weight: 400;
+    font-size: 36px;
+    font-style: normal;
+    color: var(--color-text-light);
 }
 
 .login-container {
@@ -60,6 +72,7 @@ header {
     font-weight: 700;
     margin-bottom: 67px;
     font-size: 32px;
+    color: var(--color-text-light);
 }
 
 .login-form {
@@ -80,26 +93,28 @@ header {
 .form-group label {
     font-weight: 700;
     font-size: 15px;
+    color: var(--color-text-light);
 }
 
 .form-group input {
     width: 355px;
     height: 33px;
     padding: 8px 10px;
-    border: 1px solid var(--color-primary);
+    border: 1px solid var(--color-text-light);
+    color: var(--color-text-light);
     border-radius: 4px;
     font-family: "Pretendard Variable";
     background-color: transparent;
 }
 
 input::placeholder {
-    color: var(--color-primary);
+    color: var(--color-text-light);
     font-family: "Pretendard Variable";
     font-weight: 400;
 }
 
-input:focus {
-    outline: 3px solid var(--color-secondary);
+input:focus{
+    outline: 3px solid var(--color-accent);
     border: none;
 }
 
