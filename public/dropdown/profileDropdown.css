@@ -1,11 +1,23 @@
 .profile-dropdown {
-    display: none; 
+    display: none;
     position: absolute;
-    background: #D9D9D9;
-    top: 80px;
+    background: var(--color-secondary);
+    top: 50px;
     width: 115px;
     height: 105px;
     z-index: 10;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    opacity: 0; /* 기본적으로 투명 */
+    transform: translateY(-10px); /* 살짝 위로 이동한 상태 */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.profile-user-img:hover + .profile-dropdown, /* 프로필 이미지 위에 마우스를 올릴 때 */
+.profile-dropdown:hover { /* 드롭다운 위에 마우스를 올릴 때 */
+    display: block;
+    opacity: 1; /* 투명도 변경 */
+    transform: translateY(0); /* 원래 위치로 이동 */
 }
 
 .profile-dropdown div {
@@ -14,13 +26,17 @@
     height: 35px;
     font-family: Pretendard;
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 14.52px;
     text-align: center;
+    color: var(--color-background);
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
-.profile-dropdown > div:hover{
-    background: #E9E9E9;
-}
-.profile-user-img {
-    cursor: pointer;
+
+.profile-dropdown > div:hover {
+    background: var(--color-secondary-accent);
+    color: var(--color-text-light);
+    font-weight: 600;
+    border-radius: 10px;
+    transform: scale(1.02); /* 살짝 확대 */
 }

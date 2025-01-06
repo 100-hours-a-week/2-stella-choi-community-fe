@@ -2,7 +2,8 @@
     --color-background: #0A0F16;
     --color-primary: #FFB1CD;
     --color-secondary: #ccd0da;
-    --color-accent: #FFB1CD;
+    --color-secondary-accent: #8e9093;
+    --color-accent: #f8679a;
     --color-text-light: #FFFFFF;
     --color-text-lighter: #ccd0da;
     --color-error: #f44336;
@@ -13,7 +14,6 @@ input:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--color-text-light); /* 텍스트 색상 변경 */
     -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset; /* 배경색 덮어쓰기 */
     transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s; /* 부드러운 전환 */
-    border: 1px solid var(--color-primary); /* 테두리 스타일 */
 }
 
 * {
@@ -46,6 +46,13 @@ header {
     border-radius: 1.5rem;
     z-index: 1000;
     position: relative;
+    box-shadow: 4px 4px 12px rgba(255, 255, 255, 0.7);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+header:hover {
+    box-shadow: 0px 6px 16px rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
 }
 
 .header-name {
@@ -54,7 +61,10 @@ header {
     font-weight: 400;
     font-size: 36px;
     font-style: normal;
-    color: var(--color-text-light);
+}
+
+.header-name span.emoji{
+    font-size: 30px;
 }
 
 .login-container {
@@ -114,7 +124,7 @@ input::placeholder {
 }
 
 input:focus{
-    outline: 3px solid var(--color-accent);
+    outline: 3px solid var(--color-primary);
     border: none;
 }
 
@@ -136,7 +146,8 @@ input:focus{
 }
 
 .login-btn.active {
-    background-color: var(--color-accent);
+    background-color: var(--color-primary);
+    color: var(--color-background);
 }
 
 .actions {
