@@ -172,7 +172,9 @@ header p {
 }
 
 .create-post-btn:hover {
-    background-color: var(--color-accent);
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    font-weight: 500;
     transform: translateY(-2px);
 }
 
