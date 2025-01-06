@@ -1,3 +1,14 @@
+:root {
+    --color-background: #0A0F16;
+    --color-primary: #FFB1CD;
+    --color-secondary: #ccd0da;
+    --color-secondary-accent: #8e9093;
+    --color-accent: #f8679a;
+    --color-text-light: #FFFFFF;
+    --color-text-lighter: #ccd0da;
+    --color-error: #f44336;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,16 +17,48 @@
 
 body {
     font-family: "Pretendard Variable";
-    background-color: #f5f5f5;
+    background-color: var(--color-background);
 }
+
+.container {
+    padding-top: 1rem;
+    padding-left: 1.62rem;
+    padding-right: 1.62rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+}
+
 
 header {
     width: 100%;
-    height: 104px;
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid;
+    background-color: rgba(254, 168, 197, 0.9);
+    color: var(--color-text-light);
+    border-radius: 1.5rem;
+    z-index: 1000;
+    position: relative;
+    box-shadow: 4px 4px 12px rgba(255, 255, 255, 0.7);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+header:hover {
+    box-shadow: 0px 6px 16px rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+}
+
+header p {
+    font-family: "Jersey 10", serif;
 }
 
 .header-content{
@@ -46,10 +89,16 @@ header {
     object-fit: cover;
 }
 
-.header-name{
-    font-family: "Moirai One";
-    font-size: 32px;
-    font-weight: 700;
+.header-name {
+    letter-spacing: 3px;
+    font-family: "Jersey 10", serif;
+    font-weight: 400;
+    font-size: 36px;
+    font-style: normal;
+}
+
+.header-name span.emoji{
+    font-size: 30px;
 }
 
 .arrow-wrap{
@@ -62,11 +111,15 @@ header {
 
 .arrow-prev {
     content: '';
-    width: 10.93px; 
+    width: 10.93px;
     height: 10.93px;
-    border-top: 2px solid #000; 
-    border-right: 2px solid #000;
+    border-top: 2px solid var(--color-text-light);
+    border-right: 2px solid var(--color-text-light);
     transform: rotate(225deg);
+}
+
+.arrow-prev:hover {
+    transform: scale(1.2) rotate(225deg);
 }
 
 .container {
@@ -80,7 +133,7 @@ header {
 }
 
 .post{
-    padding:24px;
+    padding: 30px 24px 24px 24px;
     display: flex;
     flex-direction: column;
 }
@@ -156,7 +209,8 @@ header {
     font-size: 15px;
     font-weight: 400;
     text-align: center;
-    border: #ACA0EB 1px solid;
+    border: var(--color-primary) 2px solid;
+    color: var(--color-text-light);
     border-radius: 4px;
     display: flex;
     background: transparent;
@@ -172,7 +226,8 @@ header {
     font-weight: 400;
     text-align: center;
     background: transparent;
-    border: #ACA0EB 1px solid;
+    border: var(--color-primary) 2px solid;
+    color: var(--color-text-light);
     border-radius: 4px;
     display: flex;
     justify-content: center;
@@ -180,13 +235,14 @@ header {
 }
 
 .edit-button:hover, .delete-button:hover{
-    background-color: #ACA0EB; /* 호버 시 배경색 */
+    background-color: var(--color-primary); /* 호버 시 배경색 */
     color: #FFFFFF; /* 글씨 흰색 */
-    border-color: #ACA0EB; /* 테두리 색상 */
+    border-color: var(--color-primary); /* 테두리 색상 */
 }
 
 .partition {
-    border: 1px solid rgba(0, 0, 0, 0.16); 
+    border: 1px solid rgb(255,177,205,0.4);
+    box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.7);
 }
 
 .post-content-info{
@@ -201,7 +257,6 @@ header {
     width: 544px;
 }
 
-
 .post-text{
     width: 544px;
     text-align: left;
@@ -209,7 +264,7 @@ header {
 
 .text{
     font-family: Pretendard;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 21.15px;
     text-align: left;
@@ -230,7 +285,8 @@ header {
     gap: 0px;
     border-radius: 16px;
     opacity: 0px;
-    background: #D9D9D9;
+    color: var(--color-background);
+    background-color: var(--color-secondary);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -305,7 +361,7 @@ header {
     gap: 0px;
     border: none;
     border-radius: 16px;
-    background: #ACA0EB;
+    background: var(--color-secondary);
     color: #FFFFFF;
     opacity: 0px;
 }
@@ -414,16 +470,17 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검정 배경 */
+    background-color: rgba(255, 255, 255, 0.5); /* 반투명한 검정 배경 */
     z-index: 999; 
 }
 
 .modal{
     position: fixed;
+    color: var(--color-background);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;   
+    z-index: 1000;
 }
 
 .modal-content{
@@ -487,7 +544,7 @@ header {
     width: 127px;
     height: 44px;
     border-radius: 12px;
-    background: #C4A5FA;
+    background: var(--color-primary);
 
     font-family: Pretendard;
     font-size: 20px;

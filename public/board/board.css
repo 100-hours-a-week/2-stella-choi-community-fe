@@ -159,8 +159,9 @@ header p {
 }
 
 .create-post-btn {
-    background-color: var(--color-primary);
-    color: #fff;
+    background-color: var(--color-text-lighter);
+    color: var(--color-background);
+    font-weight: 500;
     padding: 10px 20px;
     border: none;
     border-radius: 16px;
@@ -176,6 +177,7 @@ header p {
     color: var(--color-background);
     font-weight: 500;
     transform: translateY(-2px);
+    box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.6);
 }
 
 .border-line {

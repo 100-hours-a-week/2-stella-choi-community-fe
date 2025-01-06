@@ -1,12 +1,20 @@
 function displayFileName() {
     const fileInput = document.getElementById('file');
     const fileNameDisplay = document.getElementById('file-name');
+    const fileInputBtn = document.querySelector('.image-form');
     if (fileInput.files.length > 0) {
+        fileInputBtn.classList.add('selected');
         fileNameDisplay.textContent = fileInput.files[0].name; // 선택된 파일의 이름 표시
+        fileInputBtn.textContent = '파일 변경';
     } else {
         fileNameDisplay.textContent = '선택된 파일 없음';
+        if(fileInputBtn.classList.contains('selected')) {
+            fileInputBtn.classList.remove('selected');
+            fileInputBtn.textContent = '파일 선택';
+        }
     }
 }
+
 function updateButtonState() {
     const title = document.getElementById('title').value.trim();
     const content = document.getElementById('content').value.trim();

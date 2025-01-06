@@ -146,7 +146,8 @@ commentSubmitButton.addEventListener('click', async (e) => {
         commentToEdit.querySelector('.comment-data').textContent = newCommentContent;
 
         await editComment(editingCommentId);
-        commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
+        commentSubmitButton.style.backgroundColor = '#ccd0da'; // 버튼 비활성화 색상
+        commentSubmitButton.style.color = '#FFFFFF';
 
         isEditing = false;
         editingCommentId = null;
@@ -155,7 +156,8 @@ commentSubmitButton.addEventListener('click', async (e) => {
         if(newCommentContent){
             createComment();
             commentSubmitButton.disabled = true;
-            commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
+            commentSubmitButton.style.backgroundColor = '#ccd0da'; // 버튼 비활성화 색상
+            commentSubmitButton.style.color = '#FFFFFF';
             console.log("댓글 등록:", newCommentContent);
         }
     }
@@ -314,10 +316,12 @@ commentInput.addEventListener('input', function () {
     const inputValue = this.value.trim();
     if (inputValue.length > 0) {
         commentSubmitButton.disabled = false;
-        commentSubmitButton.style.backgroundColor = '#7F6AEE'; // 버튼 활성화 색상
+        commentSubmitButton.style.backgroundColor = '#FFB1CD'; // 버튼 활성화 색상
+        commentSubmitButton.style.color = '#0A0F16';
     } else {
         commentSubmitButton.disabled = true;
-        commentSubmitButton.style.backgroundColor = '#ACA0EB'; // 버튼 비활성화 색상
+        commentSubmitButton.style.backgroundColor = '#ccd0da'; // 버튼 비활성화 색상
+        commentSubmitButton.style.color = '#FFFFFF';
     }
 });
 
@@ -391,7 +395,8 @@ async function editComment(commentId) {
         if (response.ok) {
             commentInput.value = ''; // 입력 필드 초기화
             buttonText.textContent = '댓글 등록'; // 버튼 텍스트 초기화
-
+            commentSubmitButton.style.backgroundColor = '#ccd0da';
+            commentSubmitButton.style.color = '#FFFFFF';
             await loadData();
         } else {
             // 에러 처리
@@ -455,8 +460,8 @@ async function handleLike(postId) {
             handleError(responseData.message);
         }
     } catch (error) {
-        console.error('댓글 삭제 중 오류 발생:', error);
-        alert('댓글 삭제 중 오류가 발생했습니다.');
+        console.error('좋아요 처리 중 오류 발생:', error);
+        alert('좋아요 처리 중 오류가 발생했습니다.');
     }
 }
 
@@ -477,10 +482,10 @@ async function checkLike(postId) {
     if(response.ok) {
         if(responseData.data.isLiked){
             isLiked = true;
-            likeButton.style.background = '#ACA0EB';
+            likeButton.style.background = '#FFB1CD';
         } else{
             isLiked = false;
-            likeButton.style.background = '#D9D9D9';
+            likeButton.style.background = '#ccd0da';
         }
     }
 }
@@ -503,8 +508,8 @@ async function deletePost(postId){
             handleError(responseData.message);
         }
     } catch (error) {
-        console.error('댓글 삭제 중 오류 발생:', error);
-        alert('댓글 삭제 중 오류가 발생했습니다.');
+        console.error('게시글 삭제 중 오류 발생:', error);
+        alert('게시글 삭제 중 오류가 발생했습니다.');
     }
 }
 
