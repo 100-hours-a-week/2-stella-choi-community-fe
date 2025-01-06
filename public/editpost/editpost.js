@@ -5,12 +5,66 @@ let existingImageFile = null;
 function displayFileName() {
     const fileInput = document.getElementById('file');
     const fileNameDisplay = document.getElementById('file-name');
+    const fileInputBtn = document.querySelector('.image-form');
     if (fileInput.files.length > 0) {
+        fileInputBtn.classList.add('selected');
         fileNameDisplay.textContent = fileInput.files[0].name; // 선택된 파일의 이름 표시
+        fileInputBtn.textContent = '파일 변경';
     } else {
         fileNameDisplay.textContent = '선택된 파일 없음';
+        if(fileInputBtn.classList.contains('selected')) {
+            fileInputBtn.classList.remove('selected');
+            fileInputBtn.textContent = '파일 선택';
+        }
     }
 }
+
+function updateButtonState() {
+    const title = document.getElementById('title').value.trim();
+    const content = document.getElementById('content').value.trim();
+    const fileInput = document.getElementById('file');
+    const submitButton = document.querySelector('.submit-part .submit');
+
+    // 모든 필드가 채워졌을 때 버튼 활성화
+    if (title && content) {
+        if(title.length > 26) {
+            submitButton.classList.remove('active');
+            submitButton.disabled = true;
+        }
+        else{
+            submitButton.classList.add('active');
+            submitButton.disabled = false;
+        }
+    }
+    else if (fileInput.files.length > 0){
+        if(title.length > 26) {
+            submitButton.classList.remove('active');
+            submitButton.disabled = true;
+        }
+        else{
+            submitButton.classList.add('active');
+            submitButton.disabled = false;
+        }
+    }
+    else {
+        submitButton.classList.remove('active');
+        submitButton.disabled = true;
+    }
+}
+
+function setupInputListeners() {
+    const titleInput = document.getElementById('title');
+    const contentInput = document.getElementById('content');
+    const fileInput = document.getElementById('file');
+
+    titleInput.addEventListener('input', updateButtonState);
+    contentInput.addEventListener('input', updateButtonState);
+    fileInput.addEventListener('change', updateButtonState);
+}
+
+document.querySelector('.arrow-wrap').addEventListener('click', () => {
+    window.location.href = `/board`;
+});
 
 // API 에러 메시지 처리 함수
 function handleError(message) {
@@ -37,8 +91,6 @@ function handleError(message) {
             alert('서버 오류가 발생했습니다.');
     }
 }
-
-
 
 async function loadData() {
     const getPostUrl = `${hostUrl}${serverVersion}/boards/${postID}`;
@@ -169,5 +221,7 @@ async function renderProfile(data){
 document.addEventListener('DOMContentLoaded', async () => {
         loadData();
         loadProfile();
+        setupInputListeners();
+        updateButtonState();
     }
 );

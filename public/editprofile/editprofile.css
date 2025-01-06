@@ -1,3 +1,21 @@
+:root {
+    --color-background: #0A0F16;
+    --color-primary: #FFB1CD;
+    --color-secondary: #ccd0da;
+    --color-secondary-accent: #8e9093;
+    --color-accent: #f8679a;
+    --color-text-light: #FFFFFF;
+    --color-text-lighter: #ccd0da;
+    --color-error: #f44336;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-text-light); /* 텍스트 색상 변경 */
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset; /* 배경색 덮어쓰기 */
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s; /* 부드러운 전환 */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,10 +24,13 @@
 
 body {
     font-family: "Pretendard Variable";
-    background-color: #f5f5f5;
+    background-color: var(--color-background);
 }
 
 .container {
+    padding-top: 1rem;
+    padding-left: 1.62rem;
+    padding-right: 1.62rem;
     text-align: center;
     width: 100%;
     margin: 0 auto;
@@ -17,6 +38,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: var(--color-text-light);
 }
 
 .helper-text {
@@ -28,21 +50,70 @@ body {
 
 header {
     width: 100%;
-    height: 104px;
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid;
+    background-color: rgba(254, 168, 197, 0.9);
+    color: var(--color-text-light);
+    border-radius: 1.5rem;
+    z-index: 1000;
+    position: relative;
+    box-shadow: 4px 4px 12px rgba(255, 255, 255, 0.7);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+header:hover {
+    box-shadow: 0px 6px 16px rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+}
+
+header p {
+    font-family: "Jersey 10", serif;
 }
 
 .header-content{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     justify-content: space-between;
     width: 544px;
 }
+
+.arrow-wrap{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-prev {
+    content: '';
+    width: 10.93px;
+    height: 10.93px;
+    border-top: 2px solid var(--color-text-light);
+    border-right: 2px solid var(--color-text-light);
+    transform: rotate(225deg);
+}
+
+.arrow-prev:hover {
+    transform: scale(1.2) rotate(225deg);
+}
+
+.header-name {
+    letter-spacing: 3px;
+    font-family: "Jersey 10", serif;
+    font-weight: 400;
+    font-size: 36px;
+    font-style: normal;
+}
+
+.header-name span.emoji{
+    font-size: 30px;
+}
+
 
 .wrapper{
     display: flex;
@@ -65,12 +136,6 @@ header {
     object-fit: cover;
 }
 
-
-.header-name{
-    font-family: "Moirai One";
-    font-size: 32px;
-    font-weight: 700;
-}
 
 .profile-icon {
     width: 30px;
@@ -109,6 +174,7 @@ header {
 }
 
 .profile-img-info{
+    margin-top: 20px;
     font-family: Pretendard;
     display: flex;
     font-size: 15px;
@@ -151,11 +217,11 @@ header {
     border-radius: 25px;
     border: 1px;
     opacity: 0px;
-    border: 1px solid #FFFFFF;
+    border: 1px solid var(--color-primary);
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s ease;
-    color:#FFFFFF;
+    color: var(--color-primary);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -212,13 +278,16 @@ header {
     border-radius: 4px;
     border: 1px;
     opacity: 0px;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-text-light);
     padding: 10px 8px;
     background: transparent;
+    color: var(--color-text-light);
+    font-weight: 500;
 }
 
 .input-form:focus{
-    outline: none;
+    outline: 3px solid var(--color-primary);
+    border: none;
 }
 
 .button-content{
@@ -233,7 +302,7 @@ header {
     height: 33px;
     border-radius: 4px;
     color:#FFFFFF;
-    background: #ACA0EB;
+    background: var(--color-secondary);
     border:none;
 
     font-family: Pretendard;
@@ -244,7 +313,7 @@ header {
 }
 
 .edit-btn.active{
-    background:#7F6AEE;
+    background: var(--color-primary);
 }
 
 .leave-btn{
@@ -255,6 +324,7 @@ header {
     font-weight: 400;
     line-height: 16.71px;
     text-align: center;
+    color: var(--color-text-light);
 }
 
 .modal-overlay {
@@ -329,7 +399,7 @@ header {
     width: 127px;
     height: 44px;
     border-radius: 12px;
-    background: #C4A5FA;
+    background: var(--color-primary);
 
     font-family: Pretendard;
     font-size: 20px;
@@ -357,7 +427,7 @@ header {
     height: 46px;
     border-radius: 30px;
     opacity: 0px;
-    background: #ACA0EB;
+    background: var(--color-primary);
     color: #FFFFFF;
 
     border: none;

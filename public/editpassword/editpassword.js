@@ -19,6 +19,10 @@ editBtn.addEventListener('click', async (e) => {
     await editPassword();
 })
 
+document.querySelector('.arrow-wrap').addEventListener('click', () => {
+    window.location.href = `/board`;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     passwordInput.addEventListener('blur', validatePasswordMatch);
     passwordCheckInput.addEventListener('blur', validatePasswordMatch);

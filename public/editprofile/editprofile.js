@@ -43,6 +43,9 @@ function showToast(message) {
     }, 2000);
 }
 
+document.querySelector('.arrow-wrap').addEventListener('click', () => {
+    window.location.href = `/board`;
+});
 
 editButton.addEventListener('click', async () => {
     await patchProfile();
@@ -68,6 +71,7 @@ changeProfileBtn.addEventListener('click', () => {
 });
 
 profileImgInput.addEventListener('change', (event) => {
+    const submitButton = document.querySelector('.edit-btn');
     const file = event.target.files[0]; // 선택한 파일
     if (file) {
         const reader = new FileReader();
@@ -75,6 +79,8 @@ profileImgInput.addEventListener('change', (event) => {
             profileEditImg.src = e.target.result;
         };
         reader.readAsDataURL(file);
+        submitButton.disabled = false; // 버튼 활성화
+        submitButton.classList.add('active'); // 활성화 스타일 추가
         console.log(file);
     }
 });
@@ -147,6 +153,7 @@ async function patchProfile() {
     const patchProfileUrl = `${hostUrl}${serverVersion}/users`;
     const nicknameInput = document.querySelector('.input-form');
     const profileImageInput = document.getElementById('profileImgInput');
+    const submitButton = document.querySelector('.edit-btn');
     console.log(profileImageInput.files[0]);
     const formData = new FormData();
     formData.append('category', "profile");
@@ -169,6 +176,8 @@ async function patchProfile() {
 
         if (response.ok) {
             showToast('수정완료');
+            submitButton.disabled = true; // 버튼 비활성화
+            submitButton.classList.remove('active');
             loadData(); // 데이터 재로드
         } else {
             handleError(response.status, responseData.message);
